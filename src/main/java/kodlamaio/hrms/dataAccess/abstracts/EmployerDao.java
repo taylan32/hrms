@@ -28,6 +28,8 @@ public interface EmployerDao extends JpaRepository<Employer, Integer> {
 	@Query("select e from Employer e where e.isConfirmed = false")
 	List<Employer> getAllInActiveEmployer();
 	
+	@Query("update Employer e set e.isConfirmed=tue where e.id=:employerId")
+	void confirmEmployer(int employerId);
 	
 
 }

@@ -102,9 +102,17 @@ public class EmployerManager implements EmployerService {
 		return new SuccessDataResult<List<Employer>>(this.employerDao.getAllInActiveEmployer(),
 				Messages.employerListed);
 	}
+	
+	@Override
+	public Result confirmEmployer(int employerId) {
+		this.employerDao.confirmEmployer(employerId);
+		return new SuccessResult(Messages.epmloyerUpdated);
+		
+	}
 
 	private boolean checkIfEmployerExists(int employerId) {
 		return this.employerDao.existsById(employerId);
 	}
+
 
 }

@@ -19,4 +19,6 @@ public interface EmployerService {
 	DataResult<Employer> getByUserId(int userId);
 	DataResult<List<Employer>> getAllActiveEmployer();
 	DataResult<List<Employer>> getAllInActiveEmployer();
+	
+	Result confirmEmployer(int employerId);
 }

@@ -1,5 +1,7 @@
 package kodlamaio.hrms.entities;
 
+
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,5 +42,6 @@ public class Employer extends User {
 
 	@Column(name = "is_confirmed")
 	private boolean isConfirmed;
+
 
 }
