@@ -86,6 +86,12 @@ public class EmployersController {
 		return this.employerService.getAllInActiveEmployer();
 	}
 
+	@GetMapping("/confirmEmployer")
+	public Result confirmEmployer(int employerId) {
+		return this.employerService.confirmEmployer(employerId);
+	}
+	
+	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public Map<String, String> handleValidationException(MethodArgumentNotValidException exceptions) {

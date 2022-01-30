@@ -24,10 +24,16 @@ public class Messages {
 	public static String identityNumberInvalid = "TC no gecersiz";
 	public static String employerListed = "isveren listelendi";
 	public static String employerAdded = "isveren eklendi";
-	public static String employerActice = "isveren onaylandi";
+	public static String employerActive = "isveren onaylandi";
 	public static String employerDeleted = "isveren silindi";
 	public static String epmloyerUpdated = "isveren guncellendi";
 	public static String employerExists = "isveren daha once kayit olmus";
 	public static String employerNotFound = "isveren bulunamadi";
+	public static String cityAdded = "sehir eklendi";
+	public static String cityDeleted = "sehir silindi";
+	public static String cityUpdated = "sehir guncellendi";
+	public static String cityExists = "sehir daha once eklenmis";
+	public static String cityNotFound = "sehir bulunamadi";
+	public static String cityListed = "sehir listelendi";
 
 }

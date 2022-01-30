@@ -18,6 +18,9 @@ import kodlamaio.hrms.entities.Employer;
 @Service
 public class EmployerManager implements EmployerService {
 
+	// 6.gün 
+	// eposta ile şirket adı aynı olmalı
+	
 	private EmployerDao employerDao;
 
 	public EmployerManager(EmployerDao employerDao) {
@@ -106,7 +109,7 @@ public class EmployerManager implements EmployerService {
 	@Override
 	public Result confirmEmployer(int employerId) {
 		this.employerDao.confirmEmployer(employerId);
-		return new SuccessResult(Messages.epmloyerUpdated);
+		return new SuccessResult(Messages.employerActive);
 		
 	}
 
