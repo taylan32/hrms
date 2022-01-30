@@ -14,8 +14,6 @@ public interface CandidateService {
 	DataResult<List<Candidate>> getAll();
 	DataResult<Candidate> getById(int candidateId);
 	DataResult<Candidate> getByUserId(int userId);
-	DataResult<Candidate> getByFirstName(String firstName);
-	DataResult<Candidate> getByLastName(String lastName);
 	DataResult<Candidate> getByEmail(String email);
 	DataResult<Candidate> getByIdentityNumber(String identityNumber);
 }

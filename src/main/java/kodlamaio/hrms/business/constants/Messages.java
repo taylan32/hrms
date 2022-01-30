@@ -19,5 +19,9 @@ public class Messages {
 	public static String candidateExist ="aday daha once eklenmis";
 	public static String candidateDeleted = "aday silindi";
 	public static String candidateUpdated = "aday guncellendi";
-	public static string candidateNotFound = "aday bulunamadi";
+	public static String candidateNotFound = "aday bulunamadi";
+	public static String emailExists = "email kullanimda";
+	public static String identityNumberInvalid = "TC no gecersiz";
+	
+	
 }
