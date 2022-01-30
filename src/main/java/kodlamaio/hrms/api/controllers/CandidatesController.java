@@ -38,11 +38,7 @@ public class CandidatesController {
 
 	@PostMapping("/add")
 	public ResponseEntity<?> add(@Valid @RequestBody Candidate candidate) {
-		//return ResponseEntity.ok(this.candidateService.add(candidate));
-		System.out.println(candidate.getEmail());
-		System.out.println(candidate.getFirstName());
-		System.out.println(candidate.getUserId());
-		return null;
+		return ResponseEntity.ok(this.candidateService.add(candidate));
 	}
 
 	@PostMapping("/delete")

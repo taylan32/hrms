@@ -6,10 +6,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Length;
 
 import kodlamaio.hrms.core.entities.User;
 import lombok.AllArgsConstructor;
@@ -47,8 +47,7 @@ public class Candidate extends User {
 	private String identityNumber;
 
 	@Column(name = "birth_year")
-	@Min(value = 4, message = "Dogum yili gecersiz")
-	@Max(value = 4, message = "Dogum yili gecersiz")
+	@Length(min = 4, max = 4, message = "gecersiz dogum tarihi")
 	@NotBlank(message = "Dogum yılı bos bırakılamaz")
 	private String birthYear;
  
