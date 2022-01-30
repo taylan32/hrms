@@ -33,7 +33,7 @@ public class User {
 
 	@Column(name = "password")
 	@Min(value = 4, message = "sifre en az 4 karakterden olusmali")
-	@NotBlank(message = "password bos birakilamaz")
+	@NotBlank(message = "sifre bos birakilamaz")
 	private String password;
 
 }

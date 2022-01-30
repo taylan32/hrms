@@ -51,5 +51,5 @@ public class Candidate extends User {
 	@Max(value = 4, message = "Dogum yili gecersiz")
 	@NotBlank(message = "Dogum yılı bos bırakılamaz")
 	private String birthYear;
-
+ 
 }

@@ -68,7 +68,7 @@ public class JobTitleManager implements JobTitleService {
 	@Override
 	public DataResult<JobTitle> getById(int jobTitleId) {
 		if (checkIfJobTitleExists(jobTitleId)) {
-			return new SuccessDataResult<JobTitle>(jobTitleDao.getById(jobTitleId));
+			return new SuccessDataResult<JobTitle>(jobTitleDao.getByJobtitleId(jobTitleId));
 		}
 		return new ErrorDataResult<JobTitle>(null, Messages.jobTitleNotFound);
 	}

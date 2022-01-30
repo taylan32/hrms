@@ -56,9 +56,9 @@ public class UserManager implements UserService {
 	@Override
 	public DataResult<User> getById(int userId) {
 		if(checkIfUserExists(userId)) {
-			return new ErrorDataResult<User>(null,Messages.userExists);
+			return new SuccessDataResult<User>(this.userDao.getByUserId(userId),Messages.userListed);
 		}
-		return new SuccessDataResult<User>(this.userDao.getByUserId(userId),Messages.userListed);
+		return new ErrorDataResult<User>(null,Messages.userExists);
 	}
 
 	@Override

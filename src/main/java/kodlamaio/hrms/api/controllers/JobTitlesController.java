@@ -13,15 +13,14 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import kodlamaio.hrms.business.abstracts.JobTitleService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
-import kodlamaio.hrms.core.utilities.results.ErrorDataResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.entities.JobTitle;
 
@@ -33,6 +32,7 @@ public class JobTitlesController {
 
 	public JobTitlesController(JobTitleService jobTitleService) {
 		this.jobTitleService = jobTitleService;
+
 	}
 
 	@GetMapping("/getAll")
@@ -50,10 +50,12 @@ public class JobTitlesController {
 		return this.jobTitleService.getByJobTitle(jobTitle);
 	}
 
+	
 	@PostMapping("/add")
 	public ResponseEntity<?> add(@Valid @RequestBody JobTitle jobTitle) {
 		return ResponseEntity.ok(this.jobTitleService.add(jobTitle));
 	}
+	
 
 	@PostMapping("/update")
 	public ResponseEntity<?> update(@Valid @RequestBody JobTitle jobTitle) {
@@ -76,5 +78,7 @@ public class JobTitlesController {
 		});
 		return validationErrors;
 	}
+	
+
 
 }
