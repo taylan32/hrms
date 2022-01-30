@@ -14,4 +14,10 @@ public class Messages {
 	public static String userUpdated = "kullanici guncellendi";
 	public static String userNotFound = "kullanici bulunamadi";
 	public static String userExists = "kullanici daha once eklenmis";
+	public static String candidateListed = "aday listelendi";
+	public static String candidateAdded = "aday eklendi";
+	public static String candidateExist ="aday daha once eklenmis";
+	public static String candidateDeleted = "aday silindi";
+	public static String candidateUpdated = "aday guncellendi";
+	public static string candidateNotFound = "aday bulunamadi";
 }
