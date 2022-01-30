@@ -31,13 +31,16 @@ public class UserManager implements UserService {
 		if(checkIfUserExists(user.getId())){
 			return new ErrorResult(Messages.userExists);
 		}
+		if(checkIfEmailExists(user.getEmail())) {
+			return new ErrorResult(Messages.emailExists);
+		}
 		this.userDao.save(user);
 		return new SuccessResult(Messages.userAdded);
 	}
 
 	@Override
 	public Result delete(User user) {
-		if(checkIfUserExists(user.getId())) {
+		if(!checkIfUserExists(user.getId())) {
 			return new ErrorResult(Messages.userNotFound);
 		}
 		this.userDao.delete(user);
@@ -46,7 +49,7 @@ public class UserManager implements UserService {
 
 	@Override
 	public Result update(User user) {
-		if(checkIfUserExists(user.getId())) {
+		if(!checkIfUserExists(user.getId())) {
 			return new ErrorResult(Messages.userNotFound);
 		}
 		this.userDao.save(user);
@@ -76,8 +79,16 @@ public class UserManager implements UserService {
 	}
 	
 	
-	public boolean checkIfUserExists(int userId) {
+	private boolean checkIfUserExists(int userId) {
 		return this.userDao.existsById(userId);
+	}
+	
+	private boolean checkIfEmailExists(String email) {
+		var result = this.userDao.getByEmail(email);
+		if(result == null) {
+			return false;
+		}
+		return true;
 	}
 	
 	
