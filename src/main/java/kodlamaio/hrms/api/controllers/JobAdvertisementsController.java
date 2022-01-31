@@ -24,6 +24,7 @@ import kodlamaio.hrms.business.abstracts.JobAdvertisementService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.entities.JobAdvertisement;
+import kodlamaio.hrms.entities.DTOs.JobAdvertisementDto;
 
 @RestController
 @RequestMapping("/api/jobadvertisements")
@@ -106,6 +107,42 @@ public class JobAdvertisementsController {
 		return this.advertisementService.setIsActiveTrue(jobAdvertisementId);
 	}
 
+	@GetMapping("/getAllActiveWithDetails")
+	public DataResult<List<JobAdvertisementDto>> getAllActiveJobAdvertisementWithDetail(){
+		return this.advertisementService.getAllActiveJobAdvertisementWithDetail();
+	}
+	
+	@GetMapping("/getAllPassiveWithDetail")
+	public DataResult<List<JobAdvertisementDto>> getAllPassiveJobAdvertisementWithDetail(){
+		return this.advertisementService.getAllPassiveJobAdvertisementWithDetail();
+	}
+	
+	@GetMapping("/getAllWithDetail")
+	public DataResult<List<JobAdvertisementDto>> getAllJobAdvertisementWithDetail(){
+		return this.advertisementService.getAllJobAdvertisementWithDetail();
+	}
+	
+	@GetMapping("/getAllActiveWithDetailByEmployerId")
+	public DataResult<List<JobAdvertisementDto>> getAllActiveJobAdvertisementWithDetailByEmployerId(@RequestParam int employerId){
+		return this.advertisementService.getAllActiveJobAdvertisementWithDetailByEmployerId(employerId);
+	}
+	
+	@GetMapping("/getAllPassiveWithDetailByEmployerId")
+	public DataResult<List<JobAdvertisementDto>> getAllPassiveJobAdvertisementWithDetailByEmployerId(int employerId){
+		return this.advertisementService.getAllPassiveJobAdvertisementWithDetailByEmployerId(employerId);	
+	}
+	
+	@GetMapping("/getAllActiveWithDetailASC")
+	public DataResult<List<JobAdvertisementDto>> getAllActiveJobAdvertisementWithDetailSortedASC(){
+		return this.advertisementService.getAllActiveJobAdvertisementWithDetailSortedASC();
+	}
+	
+	@GetMapping("/getAllActiveWithDetailDESC")
+	DataResult<List<JobAdvertisementDto>> getAllActiveJobAdvertisementWithDetailSortedDESC(){
+		return this.advertisementService.getAllActiveJobAdvertisementWithDetailSortedDESC();
+	}
+	
+	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException exceptions) {

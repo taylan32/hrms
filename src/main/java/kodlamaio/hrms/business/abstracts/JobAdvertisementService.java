@@ -6,6 +6,7 @@ import java.util.List;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.entities.JobAdvertisement;
+import kodlamaio.hrms.entities.DTOs.JobAdvertisementDto;
 
 public interface JobAdvertisementService {
 
@@ -36,6 +37,24 @@ public interface JobAdvertisementService {
 	Result setIsActiveFalse(int jobAdvertisementId);
 	
 	Result setIsActiveTrue(int jobAdvertisementId);
+	
+	DataResult<List<JobAdvertisementDto>> getAllActiveJobAdvertisementWithDetail();
+	
+	DataResult<List<JobAdvertisementDto>> getAllPassiveJobAdvertisementWithDetail();
+	
+	DataResult<List<JobAdvertisementDto>> getAllJobAdvertisementWithDetail();
+	
+	DataResult<List<JobAdvertisementDto>> getAllActiveJobAdvertisementWithDetailByEmployerId(int employerId);
+	
+	DataResult<List<JobAdvertisementDto>> getAllPassiveJobAdvertisementWithDetailByEmployerId(int employerId);
+	
+	DataResult<List<JobAdvertisementDto>> getAllActiveJobAdvertisementWithDetailSortedASC();
+	
+	DataResult<List<JobAdvertisementDto>> getAllActiveJobAdvertisementWithDetailSortedDESC();
+	
+	
+	
+	
 	
 	
 	

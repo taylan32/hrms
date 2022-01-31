@@ -19,6 +19,7 @@ import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
 import kodlamaio.hrms.dataAccess.abstracts.JobAdvertisementDao;
 import kodlamaio.hrms.entities.JobAdvertisement;
+import kodlamaio.hrms.entities.DTOs.JobAdvertisementDto;
 
 @Service
 public class JobAdvertisementManager implements JobAdvertisementService {
@@ -164,6 +165,51 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 		return new SuccessResult(Messages.advertisementUpdated);
 
 	}
+	
+
+	@Override
+	public DataResult<List<JobAdvertisementDto>> getAllActiveJobAdvertisementWithDetail() {
+		return new SuccessDataResult<List<JobAdvertisementDto>>
+		(this.jobAdvertisementDao.getAllActiveJobAdvertisementWithDetail(),Messages.advertisementListed);
+	}
+
+	@Override
+	public DataResult<List<JobAdvertisementDto>> getAllPassiveJobAdvertisementWithDetail() {
+		return new SuccessDataResult<List<JobAdvertisementDto>>
+		(this.jobAdvertisementDao.getAllPassiveJobAdvertisementWithDetail(),Messages.advertisementListed);
+	}
+
+	@Override
+	public DataResult<List<JobAdvertisementDto>> getAllJobAdvertisementWithDetail() {
+		return new SuccessDataResult<List<JobAdvertisementDto>>
+		(this.jobAdvertisementDao.getAllJobAdvertisementWithDetail(),Messages.advertisementListed);
+	}
+
+	@Override
+	public DataResult<List<JobAdvertisementDto>> getAllActiveJobAdvertisementWithDetailByEmployerId(int employerId) {
+		return new SuccessDataResult<List<JobAdvertisementDto>>
+		(this.jobAdvertisementDao.getAllActiveJobAdvertisementWithDetailByEmployerId(employerId),Messages.advertisementListed);
+	}
+	
+	@Override
+	public DataResult<List<JobAdvertisementDto>> getAllPassiveJobAdvertisementWithDetailByEmployerId(int employerId) {
+		return new SuccessDataResult<List<JobAdvertisementDto>>
+		(this.jobAdvertisementDao.getAllPassiveJobAdvertisementWithDetailByEmployerId(employerId),Messages.advertisementListed);
+	}
+
+	@Override
+	public DataResult<List<JobAdvertisementDto>> getAllActiveJobAdvertisementWithDetailSortedASC() {
+		return new SuccessDataResult<List<JobAdvertisementDto>>
+		(this.jobAdvertisementDao.getAllActiveJobAdvertisementWithDetailSortedASC(),Messages.advertisementListed);
+		
+	}
+
+	@Override
+	public DataResult<List<JobAdvertisementDto>> getAllActiveJobAdvertisementWithDetailSortedDESC() {
+		return new SuccessDataResult<List<JobAdvertisementDto>>
+		(this.jobAdvertisementDao.getAllActiveJobAdvertisementWithDetailSortedDESC(),Messages.advertisementListed);
+	}
+	
 
 	private boolean checkIfAdvertisementExists(int jobAdvertisementId) {
 		return this.jobAdvertisementDao.existsById(jobAdvertisementId);
@@ -190,5 +236,7 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 		}
 		return false;
 	}
+
+	
 
 }
