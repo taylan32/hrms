@@ -40,8 +40,12 @@ public class Messages {
 	public static String advertisementActive = "ilan onaylandi";
 	public static String advertisementDeleted = "ilan silindi";
 	public static String advertisementUpdated = "ilan guncellendi";
-	public static String advertisementExists = "ilan daha once eklenmis olmus";
+	public static String advertisementExists = "ilan daha once eklenmis";
 	public static String advertisementNotFound = "ilan bulunamadi";
 	public static String emailInvalid = "e-mail sirket adi ile ayni domanine sahip olmali";
+	public static String schoolAdded = "okul eklendi";
+	public static String schoolDeleted = "okul silindi";
+	public static String schoolUpdated = "okul guncellendi";
+	public static String schoolExists = "okul daha once eklenmis";
 
 }

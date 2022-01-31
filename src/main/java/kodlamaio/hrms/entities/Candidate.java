@@ -1,10 +1,13 @@
 package kodlamaio.hrms.entities;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -50,5 +53,8 @@ public class Candidate extends User {
 	@Length(min = 4, max = 4, message = "gecersiz dogum tarihi")
 	@NotBlank(message = "Dogum yılı bos bırakılamaz")
 	private String birthYear;
+	
+	@OneToMany(mappedBy = "candidate")
+	private List<School> schools;
  
 }

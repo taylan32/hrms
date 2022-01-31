@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import kodlamaio.hrms.business.abstracts.EmployerService;
 import kodlamaio.hrms.business.constants.Messages;
+import kodlamaio.hrms.business.validators.EmployerValidator;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.ErrorDataResult;
 import kodlamaio.hrms.core.utilities.results.ErrorResult;
@@ -29,6 +30,11 @@ public class EmployerManager implements EmployerService {
 		if (checkIfEmployerExists(employer.getId())) {
 			return new ErrorResult(Messages.employerExists);
 		}
+		var result = EmployerValidator.validate(employer);
+		if(!result.isSuccess()) {
+			return new ErrorResult(result.getMessage());
+		}
+		
 		employer.setConfirmed(false);
 		this.employerDao.save(employer);
 		return new SuccessResult(Messages.employerAdded);
