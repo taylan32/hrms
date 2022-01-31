@@ -35,5 +35,12 @@ public class Messages {
 	public static String cityExists = "sehir daha once eklenmis";
 	public static String cityNotFound = "sehir bulunamadi";
 	public static String cityListed = "sehir listelendi";
+	public static String advertisementListed = "ilan listelendi";
+	public static String advertisementAdded = "ilan eklendi";
+	public static String advertisementActive = "ilan onaylandi";
+	public static String advertisementDeleted = "ilan silindi";
+	public static String advertisementUpdated = "ilan guncellendi";
+	public static String advertisementExists = "ilan daha once eklenmis olmus";
+	public static String advertisementNotFound = "ilan bulunamadi";
 
 }
