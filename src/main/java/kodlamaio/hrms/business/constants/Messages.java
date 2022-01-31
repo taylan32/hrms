@@ -47,5 +47,11 @@ public class Messages {
 	public static String schoolDeleted = "okul silindi";
 	public static String schoolUpdated = "okul guncellendi";
 	public static String schoolExists = "okul daha once eklenmis";
+	public static String jobExperimentAdded= "is tecrübesi eklendi";
+	public static String jobExperimentDeleted= "is tecrübesi silindi";
+	public static String jobExperimentUpdated= "is tecrübesi guncellendi";
+	public static String languageAdded= "dil eklendi";
+	public static String languageDeleted= "dil silindi";
+	public static String languageUpdated= "dil guncellendi";
 
 }

@@ -7,8 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+
+import org.hibernate.validator.constraints.Length;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,7 +33,7 @@ public class User {
 	private String email;
 
 	@Column(name = "password")
-	@Min(value = 4, message = "sifre en az 4 karakterden olusmali")
+	@Length(min =  4, message = "sifre en az 4 karakterden olusmali")
 	@NotBlank(message = "sifre bos birakilamaz")
 	private String password;
 

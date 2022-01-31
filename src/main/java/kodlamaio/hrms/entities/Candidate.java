@@ -56,5 +56,12 @@ public class Candidate extends User {
 	
 	@OneToMany(mappedBy = "candidate")
 	private List<School> schools;
+	
+	
+	@OneToMany(mappedBy = "candidate")
+	private List<JobExperiment> jobExperiments;
  
+	@OneToMany(mappedBy = "candidate")
+	private List<Language> languages;
+	
 }

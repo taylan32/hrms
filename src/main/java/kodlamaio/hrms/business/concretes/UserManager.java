@@ -53,7 +53,7 @@ public class UserManager implements UserService {
 			return new ErrorResult(Messages.userNotFound);
 		}
 		this.userDao.save(user);
-		return new SuccessResult(Messages.userAdded);
+		return new SuccessResult(Messages.userUpdated);
 	}
 
 	@Override
