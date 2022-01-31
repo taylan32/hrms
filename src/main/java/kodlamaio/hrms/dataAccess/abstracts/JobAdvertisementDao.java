@@ -63,7 +63,7 @@ public interface JobAdvertisementDao extends JpaRepository<JobAdvertisement, Int
 			+ "inner join employers as e on j.employer_id = e.id "
 			+ "inner join job_titles as jt on j.job_title_id = jt.id "
 			+ "inner join cities as ci on j.city_id = ci.id "
-			+ "order by asc",nativeQuery = true)
+			+ "order by j.creation_date asc",nativeQuery = true)
 	List<JobAdvertisementDto> getAllActiveJobAdvertisementWithDetailSortedASC();
 
 	@Query(value = "select j.id,e.company_name,jt.title,ci.city_name,j.amount,j.creation_date,j.dead_line "
@@ -71,7 +71,7 @@ public interface JobAdvertisementDao extends JpaRepository<JobAdvertisement, Int
 			+ "inner join employers as e on j.employer_id = e.id "
 			+ "inner join job_titles as jt on j.job_title_id = jt.id "
 			+ "inner join cities as ci on j.city_id = ci.id "
-			+ "order by desc",nativeQuery = true)
+			+ "order by j.creation_date desc",nativeQuery = true)
 	List<JobAdvertisementDto> getAllActiveJobAdvertisementWithDetailSortedDESC();
 
 

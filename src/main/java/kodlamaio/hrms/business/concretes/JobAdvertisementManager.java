@@ -187,12 +187,18 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 
 	@Override
 	public DataResult<List<JobAdvertisementDto>> getAllActiveJobAdvertisementWithDetailByEmployerId(int employerId) {
+		if (!checkIfEmployerExists(employerId)) {
+			return new ErrorDataResult<List<JobAdvertisementDto>>(Messages.employerNotFound);
+		}
 		return new SuccessDataResult<List<JobAdvertisementDto>>
 		(this.jobAdvertisementDao.getAllActiveJobAdvertisementWithDetailByEmployerId(employerId),Messages.advertisementListed);
 	}
 	
 	@Override
 	public DataResult<List<JobAdvertisementDto>> getAllPassiveJobAdvertisementWithDetailByEmployerId(int employerId) {
+		if (!checkIfEmployerExists(employerId)) {
+			return new ErrorDataResult<List<JobAdvertisementDto>>(Messages.employerNotFound);
+		}
 		return new SuccessDataResult<List<JobAdvertisementDto>>
 		(this.jobAdvertisementDao.getAllPassiveJobAdvertisementWithDetailByEmployerId(employerId),Messages.advertisementListed);
 	}
