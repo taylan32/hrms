@@ -42,5 +42,6 @@ public class Messages {
 	public static String advertisementUpdated = "ilan guncellendi";
 	public static String advertisementExists = "ilan daha once eklenmis olmus";
 	public static String advertisementNotFound = "ilan bulunamadi";
+	public static String emailInvalid = "e-mail sirket adi ile ayni domanine sahip olmali";
 
 }

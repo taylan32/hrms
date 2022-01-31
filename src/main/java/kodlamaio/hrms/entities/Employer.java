@@ -38,6 +38,10 @@ public class Employer extends User {
 	@Column(name = "company_name")
 	@NotBlank(message = "sirket adi bos birakilamaz")
 	private String companyName;
+	
+	@Column(name = "web_site")
+	@NotBlank(message = "web adresi bos olamaz")
+	private String webSite;
 
 	@Column(name = "phone_number")
 	@NotBlank(message = "telefon numarasi bos birakilamaz")

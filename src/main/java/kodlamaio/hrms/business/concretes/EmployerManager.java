@@ -18,9 +18,6 @@ import kodlamaio.hrms.entities.Employer;
 @Service
 public class EmployerManager implements EmployerService {
 
-	// 6.gün 
-	// eposta ile şirket adı aynı olmalı
-	
 	private EmployerDao employerDao;
 
 	public EmployerManager(EmployerDao employerDao) {
