@@ -53,15 +53,20 @@ public class Candidate extends User {
 	@Length(min = 4, max = 4, message = "gecersiz dogum tarihi")
 	@NotBlank(message = "Dogum yılı bos bırakılamaz")
 	private String birthYear;
-	
+
 	@OneToMany(mappedBy = "candidate")
 	private List<School> schools;
-	
-	
+
 	@OneToMany(mappedBy = "candidate")
 	private List<JobExperiment> jobExperiments;
- 
+
 	@OneToMany(mappedBy = "candidate")
 	private List<Language> languages;
-	
+
+	@OneToMany(mappedBy = "candidate")
+	private List<SocialMediaAccount> socialMediaAccounts;
+
+	@OneToMany(mappedBy = "candidate")
+	private List<Skill> skills;
+
 }

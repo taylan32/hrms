@@ -53,5 +53,15 @@ public class Messages {
 	public static String languageAdded= "dil eklendi";
 	public static String languageDeleted= "dil silindi";
 	public static String languageUpdated= "dil guncellendi";
-
+	public static String socialMediaAccountAdded = "hesap eklendi";
+	public static String socialMediaAccountDeleted = "hesap silindi";
+	public static String socialMediaAccountUpdated = "hesap guncellendi";
+	public static String socialMediaAccountNotFound = "hesap bulunamadi";
+	public static String skillAdded = "yetenek eklendi";
+	public static String skillDeleted = "yetenek silindi";
+	public static String skillUpdated = "yetenek guncellendi";
+	public static String skillNotFound = "yetenek bulunamadi";
+	public static String descriptionAdded = "aciklama eklendi";
+	public static String descriptionDeleted = "aciklama silindi";
+	public static String descriptionUpdated = "aciklama guncellendi";
 }
