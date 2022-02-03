@@ -64,4 +64,10 @@ public class Messages {
 	public static String descriptionAdded = "aciklama eklendi";
 	public static String descriptionDeleted = "aciklama silindi";
 	public static String descriptionUpdated = "aciklama guncellendi";
+	public static String photoAdded = "fotograf eklendi";
+	public static String photoDeleted = "fotograf silindi";
+	public static String photoUpdated= "fotograf guncellendi";
+	public static String photoNotFound = "fotograf bulunumadi";
+	
+	
 }
