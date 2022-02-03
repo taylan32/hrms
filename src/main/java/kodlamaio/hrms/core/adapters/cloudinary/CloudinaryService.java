@@ -1,4 +1,4 @@
-package kodlamaio.hrms.core.adapters.abstracts;
+package kodlamaio.hrms.core.adapters.cloudinary;
 
 import java.io.File;
 import java.io.IOException;

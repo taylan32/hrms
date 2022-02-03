@@ -1,15 +1,12 @@
 package kodlamaio.hrms.entities;
 
-
-
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -25,21 +22,14 @@ import lombok.EqualsAndHashCode;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
+@PrimaryKeyJoinColumn(name = "user_id", referencedColumnName = "id")
 public class Employer extends User {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private int id;
-
-	@Column(name = "user_id")
-	private int userId;
-
-	@Column(name = "company_name")
+	@Column(name = "company_name", unique = true)
 	@NotBlank(message = "sirket adi bos birakilamaz")
 	private String companyName;
-	
-	@Column(name = "web_site")
+
+	@Column(name = "web_site", unique = true)
 	@NotBlank(message = "web adresi bos olamaz")
 	private String webSite;
 
@@ -49,9 +39,8 @@ public class Employer extends User {
 
 	@Column(name = "is_confirmed")
 	private boolean isConfirmed;
-	
+
 	@OneToMany(mappedBy = "employer")
 	private List<JobAdvertisement> jobAdvertisements;
-
 
 }

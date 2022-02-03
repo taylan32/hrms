@@ -8,8 +8,8 @@ import kodlamaio.hrms.core.entities.User;
 public interface UserDao extends JpaRepository<User, Integer> {
 
 	User getByEmail(String email);
-	
-	@Query("SELECT u FROM User u WHERE u.id = id")
+
+	@Query("SELECT u FROM User u WHERE u.id =:userId")
 	User getByUserId(int userId);
 
 }

@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -20,6 +22,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
 
 	@Id
@@ -27,7 +30,7 @@ public class User {
 	@Column(name = "id")
 	private int id;
 
-	@Column(name = "email")
+	@Column(name = "email", unique = true)
 	@Email(message = "email gecersiz")
 	@NotBlank(message = "email bos birakilamaz")
 	private String email;
@@ -36,5 +39,6 @@ public class User {
 	@Length(min =  4, message = "sifre en az 4 karakterden olusmali")
 	@NotBlank(message = "sifre bos birakilamaz")
 	private String password;
+	
 
 }

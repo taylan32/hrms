@@ -36,8 +36,18 @@ public class CandidatesController {
 		this.candidateService = candidateService;
 	}
 
+	@GetMapping("/getByEmail")
+	public DataResult<Candidate> getByEmail(@RequestParam String email) {
+		return this.candidateService.getByEmail(email);
+	}
+
+	@GetMapping("/getByIndentityNumber")
+	public DataResult<Candidate> getByIdentityNumber(String identityNumber) {
+		return this.candidateService.getByIdentityNumber(identityNumber);
+	}
+
 	@PostMapping("/add")
-	public ResponseEntity<?> add(@Valid @RequestBody Candidate candidate) {
+	public ResponseEntity<?> add(@Valid @RequestBody() Candidate candidate) {
 		return ResponseEntity.ok(this.candidateService.add(candidate));
 	}
 
@@ -61,32 +71,17 @@ public class CandidatesController {
 		return this.candidateService.getById(candidateId);
 	}
 
-	@GetMapping("/getByUserId")
-	public DataResult<Candidate> getByUserId(@RequestParam int userId) {
-		return this.candidateService.getByUserId(userId);
-	}
-
-	@GetMapping("/getByEmail")
-	public DataResult<Candidate> getByEmail(@RequestParam String email) {
-		return this.candidateService.getByEmail(email);
-	}
-
-	@GetMapping("/getByIndentityNumber")
-	public DataResult<Candidate> getByIdentityNumber(String identityNumber) {
-		return this.candidateService.getByIdentityNumber(identityNumber);
-	}
-
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public Map<String, String> handleValidationException(MethodArgumentNotValidException exceptions){
-		
-		Map<String, String> validationErrors = new HashMap<String,String>();
-		exceptions.getBindingResult().getAllErrors().forEach((error)->{
+	public Map<String, String> handleValidationException(MethodArgumentNotValidException exceptions) {
+
+		Map<String, String> validationErrors = new HashMap<String, String>();
+		exceptions.getBindingResult().getAllErrors().forEach((error) -> {
 			String fieldName = ((FieldError) error).getField();
 			String errorMessage = error.getDefaultMessage();
 			validationErrors.put(fieldName, errorMessage);
 		});
-		
+
 		return validationErrors;
 	}
 

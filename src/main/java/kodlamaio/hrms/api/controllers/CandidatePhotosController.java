@@ -19,7 +19,7 @@ import kodlamaio.hrms.entities.CandidatePhoto;
 @RestController
 @RequestMapping("/api/candidatephotos")
 public class CandidatePhotosController {
-
+	
 	private CandidatePhotoService candidatePhotoService;
 
 	@Autowired

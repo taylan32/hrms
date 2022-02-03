@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kodlamaio.hrms.business.abstracts.CandidatePhotoService;
 import kodlamaio.hrms.business.constants.Messages;
-import kodlamaio.hrms.core.adapters.abstracts.CloudinaryService;
+import kodlamaio.hrms.core.adapters.cloudinary.CloudinaryService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.ErrorDataResult;
 import kodlamaio.hrms.core.utilities.results.ErrorResult;

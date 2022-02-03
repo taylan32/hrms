@@ -2,6 +2,7 @@ package kodlamaio.hrms.business.concretes;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kodlamaio.hrms.business.abstracts.EmployerService;
@@ -21,41 +22,37 @@ public class EmployerManager implements EmployerService {
 
 	private EmployerDao employerDao;
 
+	@Autowired
 	public EmployerManager(EmployerDao employerDao) {
 		this.employerDao = employerDao;
 	}
 
 	@Override
 	public Result add(Employer employer) {
-		if (checkIfEmployerExists(employer.getId())) {
-			return new ErrorResult(Messages.employerExists);
-		}
+
 		var result = EmployerValidator.validate(employer);
-		if(!result.isSuccess()) {
+		if (!result.isSuccess()) {
 			return new ErrorResult(result.getMessage());
 		}
-		
 		employer.setConfirmed(false);
 		this.employerDao.save(employer);
 		return new SuccessResult(Messages.employerAdded);
 	}
 
 	@Override
-	public Result delete(Employer employer) {
-		if (!checkIfEmployerExists(employer.getId())) {
-			return new ErrorResult(Messages.employerNotFound);
+	public Result update(Employer employer) {
+		var result = EmployerValidator.validate(employer);
+		if (!result.isSuccess()) {
+			return new ErrorResult(result.getMessage());
 		}
-		this.employerDao.delete(employer);
-		return new SuccessResult(Messages.employerDeleted);
+		this.employerDao.save(employer);
+		return new SuccessResult(Messages.employerAdded);
 	}
 
 	@Override
-	public Result update(Employer employer) {
-		if(!checkIfEmployerExists(employer.getId())) {
-			return new ErrorResult(Messages.candidateNotFound);
-		}
-		this.employerDao.save(employer);
-		return new SuccessResult(Messages.epmloyerUpdated);
+	public Result delete(Employer employer) {
+		this.employerDao.delete(employer);
+		return new SuccessResult(Messages.employerDeleted);
 	}
 
 	@Override
@@ -64,38 +61,27 @@ public class EmployerManager implements EmployerService {
 	}
 
 	@Override
-	public DataResult<Employer> getById(int employerId) {
-		if (!checkIfEmployerExists(employerId)) {
+	public DataResult<Employer> getById(int id) {
+		if (!this.employerDao.existsById(id)) {
 			return new ErrorDataResult<Employer>(Messages.employerNotFound);
 		}
-		return new SuccessDataResult<Employer>(this.employerDao.getById(employerId), Messages.employerListed);
+		return new SuccessDataResult<Employer>(this.employerDao.getById(id), Messages.employerListed);
 	}
 
 	@Override
 	public DataResult<Employer> getByCompanyName(String companyName) {
-		Employer temp = this.employerDao.getByCompanyName(companyName);
-		if (temp == null) {
-			return new ErrorDataResult<Employer>(Messages.employerNotFound);
-		}
 		return new SuccessDataResult<Employer>(this.employerDao.getByCompanyName(companyName), Messages.employerListed);
 	}
 
 	@Override
-	public DataResult<Employer> getByPhoneNumber(String phoneNumber) {
-		Employer temp = this.employerDao.getByPhoneNumber(phoneNumber);
-		if (temp == null) {
-			return new ErrorDataResult<Employer>(Messages.employerNotFound);
-		}
-		return new SuccessDataResult<Employer>(this.employerDao.getByPhoneNumber(phoneNumber), Messages.employerListed);
+	public DataResult<List<Employer>> getByCompanyNameContains(String companyName) {
+		return new SuccessDataResult<List<Employer>>(this.employerDao.getByCompanyNameContains(companyName),
+				Messages.employerListed);
 	}
 
 	@Override
-	public DataResult<Employer> getByUserId(int userId) {
-		Employer temp = this.employerDao.getByUserId(userId);
-		if (temp == null) {
-			return new ErrorDataResult<Employer>(Messages.employerNotFound);
-		}
-		return new SuccessDataResult<Employer>(this.employerDao.getByUserId(userId), Messages.employerListed);
+	public DataResult<Employer> getByPhoneNumber(String phoneNumber) {
+		return new SuccessDataResult<Employer>(this.employerDao.getByPhoneNumber(phoneNumber), Messages.employerListed);
 	}
 
 	@Override
@@ -104,21 +90,14 @@ public class EmployerManager implements EmployerService {
 	}
 
 	@Override
-	public DataResult<List<Employer>> getAllInActiveEmployer() {
-		return new SuccessDataResult<List<Employer>>(this.employerDao.getAllInActiveEmployer(),
-				Messages.employerListed);
+	public DataResult<List<Employer>> getAllPassiveEmployer() {
+		return new SuccessDataResult<List<Employer>>(this.employerDao.getAllPassiveEmployer(), Messages.employerListed);
 	}
-	
+
 	@Override
 	public Result confirmEmployer(int employerId) {
 		this.employerDao.confirmEmployer(employerId);
 		return new SuccessResult(Messages.employerActive);
-		
 	}
-
-	private boolean checkIfEmployerExists(int employerId) {
-		return this.employerDao.existsById(employerId);
-	}
-
 
 }

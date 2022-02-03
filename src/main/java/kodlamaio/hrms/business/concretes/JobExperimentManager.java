@@ -28,6 +28,7 @@ public class JobExperimentManager implements JobExperimentService {
 	public Result add(JobExperiment jobExperiment) {
 		if (checkIfContinue(jobExperiment)) {
 			jobExperiment.setContinued(true);
+			jobExperiment.setReleaseYear("Hala devam ediyor");
 		}
 		this.jobExperimentDao.save(jobExperiment);
 		return new SuccessResult(Messages.jobExperimentAdded);

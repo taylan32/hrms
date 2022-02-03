@@ -1,4 +1,4 @@
-package kodlamaio.hrms.core.adapters.concretes;
+package kodlamaio.hrms.core.adapters.cloudinary;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -8,7 +8,6 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import kodlamaio.hrms.core.adapters.abstracts.CloudinaryService;
 import com.cloudinary.*;
 import com.cloudinary.utils.ObjectUtils;
 

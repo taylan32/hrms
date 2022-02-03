@@ -3,19 +3,19 @@ package kodlamaio.hrms.dataAccess.abstracts;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import kodlamaio.hrms.entities.Employer;
 
 public interface EmployerDao extends JpaRepository<Employer, Integer> {
 
-	Employer getByUserId(int userId);
+	@Query("FROM Employer where id=:id")
+	Employer getById(int id);
 
 	Employer getByCompanyName(String companyName);
-	
-	@Query("select e from Employer e where e.id = id")
-	Employer getById(int id);
-	
+
 	@Query("select e from Employer e where e.companyName like %:companyName%")
 	List<Employer> getByCompanyNameContains(String companyName);
 
@@ -26,10 +26,11 @@ public interface EmployerDao extends JpaRepository<Employer, Integer> {
 	List<Employer> getAllActiveEmployer();
 
 	@Query("select e from Employer e where e.isConfirmed = false")
-	List<Employer> getAllInActiveEmployer();
-	
-	@Query("update Employer e set e.isConfirmed=tue where e.id=:employerId")
+	List<Employer> getAllPassiveEmployer();
+
+	@Transactional
+	@Modifying
+	@Query("UPDATE Employer e SET e.isConfirmed = true WHERE id=:employerId")
 	void confirmEmployer(int employerId);
-	
 
 }

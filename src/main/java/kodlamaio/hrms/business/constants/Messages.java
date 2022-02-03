@@ -21,7 +21,7 @@ public class Messages {
 	public static String candidateUpdated = "aday guncellendi";
 	public static String candidateNotFound = "aday bulunamadi";
 	public static String emailExists = "email kullanimda";
-	public static String identityNumberInvalid = "TC no gecersiz";
+	public static String identityNumberInvalid = "TC no size ait değil";
 	public static String employerListed = "isveren listelendi";
 	public static String employerAdded = "isveren eklendi";
 	public static String employerActive = "isveren onaylandi";

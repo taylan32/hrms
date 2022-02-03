@@ -77,6 +77,7 @@ public class SchoolManager implements SchoolService {
 	private void setIsCompletedFalse(School school) {
 		if(school.getGraduateYear().isBlank()) {
 			school.setCompleted(false);
+			school.setGraduateYear("Hala devam ediyor");
 		}
 	}
 	

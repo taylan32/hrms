@@ -56,9 +56,9 @@ public class EmployersController {
 		return this.employerService.getAll();
 	}
 
-	@GetMapping("/getByEmployerId")
-	public DataResult<Employer> getById(@RequestParam int employerId) {
-		return this.employerService.getById(employerId);
+	@GetMapping("/getById")
+	public DataResult<Employer> getById(@RequestParam int id) {
+		return this.employerService.getById(id);
 	}
 
 	@GetMapping("/getByCompanyName")
@@ -71,27 +71,26 @@ public class EmployersController {
 		return this.employerService.getByPhoneNumber(phoneNumber);
 	}
 
-	@GetMapping("/getByUserId")
-	public DataResult<Employer> getByUserId(@RequestParam int userId) {
-		return this.employerService.getByUserId(userId);
-	}
-
-	@GetMapping("/gellAllActive")
+	@GetMapping("/getAllActive")
 	public DataResult<List<Employer>> getAllActiveEmployer() {
 		return this.employerService.getAllActiveEmployer();
 	}
 
-	@GetMapping("/getAllInactiveEmployer")
-	public DataResult<List<Employer>> getAllInActiveEmployer() {
-		return this.employerService.getAllInActiveEmployer();
+	@GetMapping("/getAllPassive")
+	public DataResult<List<Employer>> getAllPassiveEmployer() {
+		return this.employerService.getAllPassiveEmployer();
 	}
 
-	@GetMapping("/confirmEmployer")
-	public Result confirmEmployer(int employerId) {
+	@GetMapping("/getByCompanyNameContains")
+	public DataResult<List<Employer>> getByCompanyNameContains(@RequestParam String companyName) {
+		return this.employerService.getByCompanyNameContains(companyName);
+	}
+
+	@GetMapping("/confirm")
+	public Result confirmEmployer(@RequestParam int employerId) {
 		return this.employerService.confirmEmployer(employerId);
 	}
-	
-	
+
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public Map<String, String> handleValidationException(MethodArgumentNotValidException exceptions) {

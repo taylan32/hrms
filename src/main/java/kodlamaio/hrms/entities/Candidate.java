@@ -5,18 +5,12 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.Length;
 
 import kodlamaio.hrms.core.entities.User;
 import lombok.AllArgsConstructor;
@@ -30,15 +24,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
+@PrimaryKeyJoinColumn(name = "user_id", referencedColumnName = "id")
 public class Candidate extends User {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private int id;
-
-	@Column(name = "user_id")
-	private int userId;
 
 	@NotBlank(message = "isim bos birakilamaz")
 	@Column(name = "first_name")
@@ -48,14 +35,12 @@ public class Candidate extends User {
 	@NotBlank(message = "soyad bos birakilamaz")
 	private String lastName;
 
-	@Column(name = "identity_number")
+	@Column(name = "identity_number", unique = true, nullable = false, length = 11)
 	@NotBlank(message = "TC zorunlu")
-	@Size(min = 11, max = 11, message = "TC is gecersiz")
 	private String identityNumber;
 
-	@Column(name = "birth_year")
-	@Length(min = 4, max = 4, message = "gecersiz dogum tarihi")
-	@NotBlank(message = "Dogum yılı bos bırakılamaz")
+	@Column(name = "birth_year", length = 4)
+	@NotBlank(message = "dogum yili bos olamaz")
 	private String birthYear;
 
 	@OneToMany(mappedBy = "candidate")
@@ -80,5 +65,9 @@ public class Candidate extends User {
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "candidate")
 	@PrimaryKeyJoinColumn
 	private CandidatePhoto candidatePhoto;
+
+	/*
+	 * @OneToMany(mappedBy = "candidate") private List<CV> cvs;
+	 */
 
 }
