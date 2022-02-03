@@ -2,7 +2,6 @@ package kodlamaio.hrms.entities;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
@@ -11,6 +10,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import kodlamaio.hrms.core.entities.User;
 import lombok.AllArgsConstructor;
@@ -43,31 +44,32 @@ public class Candidate extends User {
 	@NotBlank(message = "dogum yili bos olamaz")
 	private String birthYear;
 
+	@JsonIgnore
+	@OneToMany(mappedBy = "candidate")
+	private List<CV> cvs;
+
+	@JsonIgnore
 	@OneToMany(mappedBy = "candidate")
 	private List<School> schools;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "candidate")
 	private List<JobExperiment> jobExperiments;
 
+	@JsonIgnore
+	@OneToOne(mappedBy = "candidate")
+	private CandidateAbout candidateAbout;
+
+	@JsonIgnore
 	@OneToMany(mappedBy = "candidate")
 	private List<Language> languages;
 
-	@OneToMany(mappedBy = "candidate")
-	private List<SocialMediaAccount> socialMediaAccounts;
-
+	@JsonIgnore
 	@OneToMany(mappedBy = "candidate")
 	private List<Skill> skills;
 
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "candidate")
-	@PrimaryKeyJoinColumn
-	private CandidateAbout candidateAbout;
-
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "candidate")
-	@PrimaryKeyJoinColumn
-	private CandidatePhoto candidatePhoto;
-
-	/*
-	 * @OneToMany(mappedBy = "candidate") private List<CV> cvs;
-	 */
+	@JsonIgnore
+	@OneToMany(mappedBy = "candidate")
+	private List<SocialMediaAccount> socialMediaAccounts;
 
 }

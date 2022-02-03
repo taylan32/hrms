@@ -44,8 +44,20 @@ public class LanguageManager implements LanguageService{
 	}
 
 	@Override
-	public DataResult<List<Language>> getByEmployerId(int employerId) {
-		return new SuccessDataResult<List<Language>>(this.languageDao.getAllByCantidateId(employerId));
+	public DataResult<List<Language>> getByCandidateId(int candidateId) {
+		return new SuccessDataResult<List<Language>>(this.languageDao.getAllByCantidateId(candidateId));
+	}
+
+
+	@Override
+	public DataResult<List<Language>> getAll() {
+		return new SuccessDataResult<List<Language>>(this.languageDao.findAll());
+	}
+
+
+	@Override
+	public DataResult<Language> getById(int id) {
+		return new SuccessDataResult<Language>(this.languageDao.getById(id));
 	}
 
 }

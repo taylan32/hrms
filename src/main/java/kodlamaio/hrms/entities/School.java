@@ -27,10 +27,6 @@ public class School {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
-	
-	@ManyToOne()
-	@JoinColumn(name = "candidate_id")
-	private Candidate candidate;
 
 	@Column(name = "school_name")
 	@NotBlank(message = "okul adi bos birakilamaz")
@@ -44,12 +40,15 @@ public class School {
 	@Length(max = 4, min = 4, message = "gecersiz giris")
 	private String yearOfStart;
 
-	@Column(name = "graduate_year")
+	@Column(name = "graduation_year")
 	@Length(max = 4, min = 4, message = "gecersiz mezuniyet yili")
-	private String graduateYear;
+	private String graduationYear;
 
 	@Column(name = "is_completed")
 	private boolean isCompleted;
-	
+
+	@ManyToOne()
+	@JoinColumn(name = "candidate_id")
+	private Candidate candidate;
 
 }

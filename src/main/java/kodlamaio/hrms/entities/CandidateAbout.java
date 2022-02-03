@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
+
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -28,11 +28,11 @@ public class CandidateAbout {
 	private int id;
 
 	@OneToOne()
-	@MapsId
 	@JoinColumn(name = "candidate_id")
 	private Candidate candidate;
 
 	@Column(name = "description")
 	@NotBlank(message = "aciklama bos olamaz")
 	private String description;
+
 }

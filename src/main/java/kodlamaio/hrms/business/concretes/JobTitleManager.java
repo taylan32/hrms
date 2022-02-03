@@ -74,8 +74,8 @@ public class JobTitleManager implements JobTitleService {
 	}
 
 	@Override
-	public DataResult<JobTitle> getByJobTitle(String jobTitle) {
-		return new SuccessDataResult<JobTitle>(jobTitleDao.getByJobTitle(jobTitle),Messages.jobTitleListed);
+	public DataResult<List<JobTitle>> getByJobTitle(String jobTitle) {
+		return new SuccessDataResult<List<JobTitle>>(jobTitleDao.getByJobTitleContainingIgnoreCase(jobTitle),Messages.jobTitleListed);
 	}
 
 	

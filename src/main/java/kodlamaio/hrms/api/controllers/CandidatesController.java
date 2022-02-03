@@ -42,12 +42,12 @@ public class CandidatesController {
 	}
 
 	@GetMapping("/getByIndentityNumber")
-	public DataResult<Candidate> getByIdentityNumber(String identityNumber) {
+	public DataResult<Candidate> getByIdentityNumber(@RequestParam String identityNumber) {
 		return this.candidateService.getByIdentityNumber(identityNumber);
 	}
 
 	@PostMapping("/add")
-	public ResponseEntity<?> add(@Valid @RequestBody() Candidate candidate) {
+	public ResponseEntity<?> add(@Valid @RequestBody Candidate candidate) {
 		return ResponseEntity.ok(this.candidateService.add(candidate));
 	}
 

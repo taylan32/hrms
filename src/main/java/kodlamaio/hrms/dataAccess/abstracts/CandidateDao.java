@@ -7,7 +7,7 @@ import kodlamaio.hrms.entities.Candidate;
 
 public interface CandidateDao extends JpaRepository<Candidate, Integer> {
 
-	@Query("FROM Candidate where userId=:userId")
+	@Query("FROM Candidate where id=:userId")
 	Candidate getByUserId(int userId);
 
 	Candidate getByIdentityNumber(String identityNumber);

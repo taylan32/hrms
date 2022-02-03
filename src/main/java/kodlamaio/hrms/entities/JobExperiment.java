@@ -28,7 +28,7 @@ public class JobExperiment {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
-	
+
 	@ManyToOne()
 	@JoinColumn(name = "candidate_id")
 	private Candidate candidate;
@@ -37,9 +37,9 @@ public class JobExperiment {
 	@NotBlank(message = "is yeri adi bos olamaz")
 	private String workPlaceName;
 
-	@Column(name = "position")
-	@NotBlank(message = "pozisyon bos olamaz")
-	private String position;
+	@ManyToOne
+	@JoinColumn(name = "job_title_id")
+	private JobTitle jobTitle;
 
 	@Column(name = "year_of_start")
 	@NotBlank(message = "tarih bos birakilamaz")
@@ -52,4 +52,5 @@ public class JobExperiment {
 	@Column(name = "is_continued")
 	@Value("${some.key:false}")
 	private boolean isContinued;
+
 }

@@ -38,10 +38,7 @@ public class LanguagesController {
 	@PostMapping("/add")
 	public ResponseEntity<?> add(@Valid @RequestBody Language language) {
 		
-		System.out.println(language.getLevel());
-		return null;
-		
-		//return ResponseEntity.ok(this.languageService.add(language));
+		return ResponseEntity.ok(this.languageService.add(language));
 	}
 
 	@PostMapping("delete")
@@ -54,9 +51,9 @@ public class LanguagesController {
 		return ResponseEntity.ok(this.languageService.update(language));
 	}
 
-	@GetMapping("/getAll")
-	public DataResult<List<Language>> getByEmployerId(int employerId) {
-		return this.languageService.getByEmployerId(employerId);
+	@GetMapping("/getAllByCandidateId")
+	public DataResult<List<Language>> getByCandidateId(int candidateId) {
+		return this.languageService.getByCandidateId(candidateId);
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)

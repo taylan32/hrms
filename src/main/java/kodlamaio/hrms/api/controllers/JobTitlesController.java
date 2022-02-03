@@ -46,7 +46,7 @@ public class JobTitlesController {
 	}
 
 	@GetMapping("/getByJobTitle")
-	public DataResult<JobTitle> getByJobTitle(@RequestParam String jobTitle) {
+	public DataResult<List<JobTitle>> getByJobTitle(@RequestParam String jobTitle) {
 		return this.jobTitleService.getByJobTitle(jobTitle);
 	}
 
