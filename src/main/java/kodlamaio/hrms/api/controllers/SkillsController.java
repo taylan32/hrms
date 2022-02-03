@@ -51,9 +51,14 @@ public class SkillsController {
 		return this.skillService.delete(skill);
 	}
 
+	@GetMapping("/getAllByCandidateId")
+	public DataResult<List<Skill>> getAllByCandidateId(@RequestParam int candidateId) {
+		return this.skillService.getAllById(candidateId);
+	}
+	
 	@GetMapping("/getAll")
-	public DataResult<List<Skill>> getAll(@RequestParam int candidateId) {
-		return this.skillService.getAll(candidateId);
+	public DataResult<List<Skill>> getAll() {
+		return this.skillService.getAll();
 	}
 
 	@GetMapping("/getById")

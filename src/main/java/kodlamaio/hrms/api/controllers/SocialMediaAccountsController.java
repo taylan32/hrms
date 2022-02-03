@@ -52,12 +52,17 @@ public class SocialMediaAccountsController {
 		return ResponseEntity.ok(this.socialMediaAccountService.update(socialMediaAccount));
 	}
 
+	@GetMapping("/getAllByCandidateId")
+	public DataResult<List<SocialMediaAccount>> getAllByCandidateId(@RequestParam int candidateId) {
+		return this.socialMediaAccountService.getAllByCandidateId(candidateId);
+	}
+	
 	@GetMapping("/getAll")
-	public DataResult<List<SocialMediaAccount>> getAll(@RequestParam int candidateId) {
-		return this.socialMediaAccountService.getAll(candidateId);
+	public DataResult<List<SocialMediaAccount>> getAll(){
+		return this.socialMediaAccountService.getAll();
 	}
 
-	@GetMapping("getById")
+	@GetMapping("/getById")
 	public DataResult<SocialMediaAccount> getById(@RequestParam int socialMediaAccountId) {
 		return this.socialMediaAccountService.getById(socialMediaAccountId);
 	}

@@ -44,7 +44,7 @@ public class SkillManager implements SkillService {
 	}
 
 	@Override
-	public DataResult<List<Skill>> getAll(int candidateId) {
+	public DataResult<List<Skill>> getAllById(int candidateId) {
 		return new SuccessDataResult<List<Skill>>(this.skillDao.getByCandidateId(candidateId));
 	}
 
@@ -54,6 +54,11 @@ public class SkillManager implements SkillService {
 			return new SuccessDataResult<Skill>(this.skillDao.getById(skillId));
 
 		return new ErrorDataResult<Skill>(Messages.skillNotFound);
+	}
+
+	@Override
+	public DataResult<List<Skill>> getAll() {
+		return new SuccessDataResult<List<Skill>>(this.skillDao.findAll());
 	}
 
 }

@@ -10,7 +10,7 @@ import kodlamaio.hrms.entities.SocialMediaAccount;
 public interface SocialMediaAccountDao extends JpaRepository<SocialMediaAccount, Integer> {
 
 	@Query("FROM SocialMediaAccount where candidate.id=:candidateId")
-	List<SocialMediaAccount> getByCanidateId(int candidateId);
+	List<SocialMediaAccount> getByCandidateId(int candidateId);
 	
 	@Query(value= "select * from social_media_accounts where id = accountId",nativeQuery = true)
 	SocialMediaAccount getById(int accountId);
