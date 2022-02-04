@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kodlamaio.hrms.business.abstracts.ImageService;
 import kodlamaio.hrms.business.abstracts.UserService;
+import kodlamaio.hrms.business.constants.Messages;
 import kodlamaio.hrms.core.adapters.cloudinary.CloudinaryService;
 import kodlamaio.hrms.core.entities.User;
 import kodlamaio.hrms.core.utilities.results.DataResult;
@@ -37,13 +38,13 @@ public class ImageManager implements ImageService {
 	@Override
 	public Result add(Image image) {
 		this.imageDao.save(image);
-		return new SuccessResult("Resim eklendi");
+		return new SuccessResult(Messages.imageAdded);
 	}
 
 	@Override
 	public Result update(Image image) {
 		this.imageDao.save(image);
-		return new SuccessResult("Resim guncellendi");
+		return new SuccessResult(Messages.imageUpdated);
 	}
 
 	@Override
@@ -61,7 +62,7 @@ public class ImageManager implements ImageService {
 			return new ErrorResult(exception.getMessage());
 		}
 
-		return new SuccessResult("Resim silindi");
+		return new SuccessResult(Messages.imageDeleted);
 
 	}
 

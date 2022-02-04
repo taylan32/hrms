@@ -64,16 +64,17 @@ public class Messages {
 	public static String descriptionAdded = "aciklama eklendi";
 	public static String descriptionDeleted = "aciklama silindi";
 	public static String descriptionUpdated = "aciklama guncellendi";
-	public static String photoAdded = "fotograf eklendi";
-	public static String photoDeleted = "fotograf silindi";
-	public static String photoUpdated= "fotograf guncellendi";
-	public static String photoNotFound = "fotograf bulunumadi";
+	public static String imageAdded = "fotograf eklendi";
+	public static String imageDeleted = "fotograf silindi";
+	public static String imageUpdated= "fotograf guncellendi";
+	public static String imageNotFound = "fotograf bulunumadi";
 	public static String workingTypeAdded = "calisma sekli eklendi";
 	public static String workingTypeUpdated = "calisma sekli guncellendi";
 	public static String workingTypedeleted = "calisma sekli silindi";
 	public static String workingTimeAdded = "eklendi";
 	public static String workingTimeUpdated = "guncellendi";
 	public static String workingTimeDeleted = "silindi";
+
 	
 	
 }
