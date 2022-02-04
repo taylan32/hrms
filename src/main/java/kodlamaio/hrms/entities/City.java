@@ -11,6 +11,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,7 +33,7 @@ public class City {
 	@NotBlank(message = "sehir adi zorunlu")
 	private String cityName;
 	
-	
+	@JsonIgnore
 	@OneToMany(mappedBy = "city")
 	List<JobAdvertisement> jobAdvertisements;
 

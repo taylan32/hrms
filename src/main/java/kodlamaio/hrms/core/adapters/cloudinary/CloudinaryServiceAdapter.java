@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Map;
 
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,7 +14,8 @@ import com.cloudinary.utils.ObjectUtils;
 
 @Service
 public class CloudinaryServiceAdapter implements CloudinaryService {
-	
+
+
 	Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
 			"cloud_name", "dqfj17jgm",
 			"api_key", "166744328938278",
@@ -42,7 +44,6 @@ public class CloudinaryServiceAdapter implements CloudinaryService {
 		fileOutputStream.close();
 		return file;
 	}
-
 	
 
 }

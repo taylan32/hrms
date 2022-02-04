@@ -1,5 +1,7 @@
 package kodlamaio.hrms.business.concretes;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,25 +26,28 @@ public class CandidateAboutManager implements CandidateAboutService {
 
 	@Override
 	public Result add(CandidateAbout candidateAbout) {
+		if (this.candidateAboutDao.existsById(candidateAbout.getId())) {
+			this.candidateAboutDao.delete(candidateAbout);
+		}
 		this.candidateAboutDao.save(candidateAbout);
 		return new SuccessResult(Messages.descriptionAdded);
 	}
 
 	@Override
 	public Result delete(CandidateAbout candidateAbout) {
-		this.candidateAboutDao.save(candidateAbout);
+		this.candidateAboutDao.delete(candidateAbout);
 		return new SuccessResult(Messages.descriptionDeleted);
 	}
 
 	@Override
 	public Result update(CandidateAbout candidateAbout) {
-		this.candidateAboutDao.delete(candidateAbout);
+		this.candidateAboutDao.save(candidateAbout);
 		return new SuccessResult(Messages.descriptionUpdated);
 	}
 
 	@Override
-	public DataResult<CandidateAbout> getOne(int candidateId) {
-		return new SuccessDataResult<CandidateAbout>(this.candidateAboutDao.getOne(candidateId));
+	public DataResult<List<CandidateAbout>> getOne(int candidateId) {
+		return new SuccessDataResult<List<CandidateAbout>>(this.candidateAboutDao.getOne(candidateId));
 	}
 
 }

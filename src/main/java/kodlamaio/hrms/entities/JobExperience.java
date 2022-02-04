@@ -21,8 +21,8 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "job_experiments")
-public class JobExperiment {
+@Table(name = "job_experiences")
+public class JobExperience {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

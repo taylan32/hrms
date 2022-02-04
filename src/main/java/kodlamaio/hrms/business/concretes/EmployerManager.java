@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kodlamaio.hrms.business.abstracts.EmployerService;
+import kodlamaio.hrms.business.abstracts.ImageService;
 import kodlamaio.hrms.business.constants.Messages;
 import kodlamaio.hrms.business.validators.EmployerValidator;
 import kodlamaio.hrms.core.utilities.results.DataResult;
@@ -21,9 +22,10 @@ import kodlamaio.hrms.entities.Employer;
 public class EmployerManager implements EmployerService {
 
 	private EmployerDao employerDao;
+	private ImageService imageService;
 
 	@Autowired
-	public EmployerManager(EmployerDao employerDao) {
+	public EmployerManager(EmployerDao employerDao, ImageService imageService) {
 		this.employerDao = employerDao;
 	}
 
@@ -36,6 +38,9 @@ public class EmployerManager implements EmployerService {
 		}
 		employer.setConfirmed(false);
 		this.employerDao.save(employer);
+		if(this.imageService.getByUserId(employer.getId()).getData() == null) {
+			this.imageService.uploadDefaultImage(employer);
+		}
 		return new SuccessResult(Messages.employerAdded);
 	}
 

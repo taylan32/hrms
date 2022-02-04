@@ -1,5 +1,7 @@
 package kodlamaio.hrms.business.concretes;
 
+import java.sql.Date;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,7 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 			return new ErrorResult(result.getMessage());
 		}
 		jobAdvertisement.setActive(true);
+		setCreationTime(jobAdvertisement);
 		this.jobAdvertisementDao.save(jobAdvertisement);
 		return new SuccessResult(Messages.advertisementAdded);
 
@@ -165,24 +168,23 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 		return new SuccessResult(Messages.advertisementUpdated);
 
 	}
-	
 
 	@Override
 	public DataResult<List<JobAdvertisementDto>> getAllActiveJobAdvertisementWithDetail() {
-		return new SuccessDataResult<List<JobAdvertisementDto>>
-		(this.jobAdvertisementDao.getAllActiveJobAdvertisementWithDetail(),Messages.advertisementListed);
+		return new SuccessDataResult<List<JobAdvertisementDto>>(
+				this.jobAdvertisementDao.getAllActiveJobAdvertisementWithDetail(), Messages.advertisementListed);
 	}
 
 	@Override
 	public DataResult<List<JobAdvertisementDto>> getAllPassiveJobAdvertisementWithDetail() {
-		return new SuccessDataResult<List<JobAdvertisementDto>>
-		(this.jobAdvertisementDao.getAllPassiveJobAdvertisementWithDetail(),Messages.advertisementListed);
+		return new SuccessDataResult<List<JobAdvertisementDto>>(
+				this.jobAdvertisementDao.getAllPassiveJobAdvertisementWithDetail(), Messages.advertisementListed);
 	}
 
 	@Override
 	public DataResult<List<JobAdvertisementDto>> getAllJobAdvertisementWithDetail() {
-		return new SuccessDataResult<List<JobAdvertisementDto>>
-		(this.jobAdvertisementDao.getAllJobAdvertisementWithDetail(),Messages.advertisementListed);
+		return new SuccessDataResult<List<JobAdvertisementDto>>(
+				this.jobAdvertisementDao.getAllJobAdvertisementWithDetail(), Messages.advertisementListed);
 	}
 
 	@Override
@@ -190,32 +192,36 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 		if (!checkIfEmployerExists(employerId)) {
 			return new ErrorDataResult<List<JobAdvertisementDto>>(Messages.employerNotFound);
 		}
-		return new SuccessDataResult<List<JobAdvertisementDto>>
-		(this.jobAdvertisementDao.getAllActiveJobAdvertisementWithDetailByEmployerId(employerId),Messages.advertisementListed);
+
+		return new SuccessDataResult<List<JobAdvertisementDto>>(
+				this.jobAdvertisementDao.getAllActiveJobAdvertisementWithDetailByEmployerId(employerId),
+				Messages.advertisementListed);
 	}
-	
+
 	@Override
 	public DataResult<List<JobAdvertisementDto>> getAllPassiveJobAdvertisementWithDetailByEmployerId(int employerId) {
 		if (!checkIfEmployerExists(employerId)) {
 			return new ErrorDataResult<List<JobAdvertisementDto>>(Messages.employerNotFound);
 		}
-		return new SuccessDataResult<List<JobAdvertisementDto>>
-		(this.jobAdvertisementDao.getAllPassiveJobAdvertisementWithDetailByEmployerId(employerId),Messages.advertisementListed);
+		return new SuccessDataResult<List<JobAdvertisementDto>>(
+				this.jobAdvertisementDao.getAllPassiveJobAdvertisementWithDetailByEmployerId(employerId),
+				Messages.advertisementListed);
 	}
 
 	@Override
 	public DataResult<List<JobAdvertisementDto>> getAllActiveJobAdvertisementWithDetailSortedASC() {
-		return new SuccessDataResult<List<JobAdvertisementDto>>
-		(this.jobAdvertisementDao.getAllActiveJobAdvertisementWithDetailSortedASC(),Messages.advertisementListed);
-		
+		return new SuccessDataResult<List<JobAdvertisementDto>>(
+				this.jobAdvertisementDao.getAllActiveJobAdvertisementWithDetailSortedASC(),
+				Messages.advertisementListed);
+
 	}
 
 	@Override
 	public DataResult<List<JobAdvertisementDto>> getAllActiveJobAdvertisementWithDetailSortedDESC() {
-		return new SuccessDataResult<List<JobAdvertisementDto>>
-		(this.jobAdvertisementDao.getAllActiveJobAdvertisementWithDetailSortedDESC(),Messages.advertisementListed);
+		return new SuccessDataResult<List<JobAdvertisementDto>>(
+				this.jobAdvertisementDao.getAllActiveJobAdvertisementWithDetailSortedDESC(),
+				Messages.advertisementListed);
 	}
-	
 
 	private boolean checkIfAdvertisementExists(int jobAdvertisementId) {
 		return this.jobAdvertisementDao.existsById(jobAdvertisementId);
@@ -243,6 +249,10 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 		return false;
 	}
 
-	
+	private void setCreationTime(JobAdvertisement jobAdvertisement) {
+		Date currentDate = new Date(System.currentTimeMillis());
+		jobAdvertisement.setCreationDate(currentDate);
+
+	}
 
 }

@@ -10,9 +10,8 @@ public interface CloudinaryService {
 
 	Map<?, ?> upload(MultipartFile multipartFile) throws IOException;
 
-	//Map<?, ?> delete(String photoId) throws IOException;
+	// Map<?, ?> delete(String photoId) throws IOException;
 	Map<?, ?> delete(int photoId) throws IOException;
-
 
 	File convert(MultipartFile multipartFile) throws IOException;
 

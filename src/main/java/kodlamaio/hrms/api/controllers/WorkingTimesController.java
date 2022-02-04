@@ -7,54 +7,60 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import kodlamaio.hrms.business.abstracts.CandidateAboutService;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import kodlamaio.hrms.business.abstracts.WorkingTimeService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.Result;
-import kodlamaio.hrms.entities.CandidateAbout;
+import kodlamaio.hrms.entities.WorkingTime;
 
 @RestController
-@RequestMapping("/api/candidateabouts")
-public class CandidateAboutsController {
+@RequestMapping("/api/workingtimes")
+public class WorkingTimesController {
 
-	private CandidateAboutService candidateAboutService;
+	private WorkingTimeService workingTimeService;
 
 	@Autowired
-	public CandidateAboutsController(CandidateAboutService candidateAboutService) {
-		this.candidateAboutService = candidateAboutService;
+	public WorkingTimesController(WorkingTimeService workingTimeService) {
+		this.workingTimeService = workingTimeService;
 	}
 
 	@PostMapping("/add")
-	public ResponseEntity<?> add(@Valid @RequestBody CandidateAbout candidateAbout) {
-		return ResponseEntity.ok(this.candidateAboutService.add(candidateAbout));
-	}
-
-	@PostMapping("/delete")
-	public Result delete(@RequestBody CandidateAbout candidateAbout) {
-		return this.candidateAboutService.delete(candidateAbout);
-
+	public ResponseEntity<?> add(@Valid @RequestBody WorkingTime workingTime) {
+		return ResponseEntity.ok(this.workingTimeService.add(workingTime));
 	}
 
 	@PostMapping("/update")
-	public ResponseEntity<?> update(@Valid @RequestBody CandidateAbout candidateAbout) {
-		return ResponseEntity.ok(this.candidateAboutService.update(candidateAbout));
+	public ResponseEntity<?> update(@Valid @RequestBody WorkingTime workingTime) {
+
+		return ResponseEntity.ok(this.workingTimeService.update(workingTime));
 	}
 
-	@GetMapping("/getOne")
-	public DataResult<List<CandidateAbout>> getOne(@RequestParam int candidateId) {
-		return this.candidateAboutService.getOne(candidateId);
+	@PostMapping("/delete")
+	public Result delete(@RequestBody WorkingTime workingTime) {
+		return this.workingTimeService.delete(workingTime);
+	}
+
+	@GetMapping("/getAll")
+	public DataResult<List<WorkingTime>> getAll() {
+		return this.workingTimeService.getAll();
+	}
+
+	@GetMapping("/getById")
+	public DataResult<WorkingTime> getById(@RequestParam int workingTimeId) {
+		return this.workingTimeService.getById(workingTimeId);
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
@@ -62,11 +68,10 @@ public class CandidateAboutsController {
 	public Map<String, String> handleValidationException(MethodArgumentNotValidException exceptions) {
 		Map<String, String> validationExceptions = new HashMap<String, String>();
 		exceptions.getBindingResult().getAllErrors().forEach((error) -> {
-			String errorField = ((FieldError) error).getField();
+			String fieldName = ((FieldError) error).getField();
 			String errorMessage = error.getDefaultMessage();
-			validationExceptions.put(errorField, errorMessage);
+			validationExceptions.put(fieldName, errorMessage);
 		});
-
 		return validationExceptions;
 	}
 

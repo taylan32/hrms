@@ -6,7 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -46,19 +46,15 @@ public class Candidate extends User {
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "candidate")
-	private List<CV> cvs;
-
-	@JsonIgnore
-	@OneToMany(mappedBy = "candidate")
 	private List<School> schools;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "candidate")
-	private List<JobExperiment> jobExperiments;
+	private List<JobExperience> jobExperiments;
 
 	@JsonIgnore
-	@OneToOne(mappedBy = "candidate")
-	private CandidateAbout candidateAbout;
+	@OneToMany(mappedBy = "candidate")
+	private List<CandidateAbout> candidateAbout;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "candidate")

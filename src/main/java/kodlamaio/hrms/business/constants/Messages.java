@@ -68,6 +68,12 @@ public class Messages {
 	public static String photoDeleted = "fotograf silindi";
 	public static String photoUpdated= "fotograf guncellendi";
 	public static String photoNotFound = "fotograf bulunumadi";
+	public static String workingTypeAdded = "calisma sekli eklendi";
+	public static String workingTypeUpdated = "calisma sekli guncellendi";
+	public static String workingTypedeleted = "calisma sekli silindi";
+	public static String workingTimeAdded = "eklendi";
+	public static String workingTimeUpdated = "guncellendi";
+	public static String workingTimeDeleted = "silindi";
 	
 	
 }

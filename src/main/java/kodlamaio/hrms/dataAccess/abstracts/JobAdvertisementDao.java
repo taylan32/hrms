@@ -23,28 +23,28 @@ public interface JobAdvertisementDao extends JpaRepository<JobAdvertisement, Int
 
 
 	@Query(value = "select j.id, e.company_name,jt.title,ci.city_name,j.amount,j.creation_date,j.dead_line "
-			+ "from job_advertisements as j " + "inner join employers as e on j.employer_id = e.id "
+			+ "from job_advertisements as j " + "inner join employers as e on j.employer_id = e.user_id "
 			+ "inner join job_titles as jt on j.job_title_id = jt.id "
 			+ "inner join cities as ci on j.city_id = ci.id where j.is_active = true", nativeQuery = true)
 	List<JobAdvertisementDto> getAllActiveJobAdvertisementWithDetail();
 
 	@Query(value = "select j.id, e.company_name,jt.title,ci.city_name, j.amount,j.creation_date,j.dead_line "
 			+ "from job_advertisements as j "
-			+ "inner join employers as e on j.employer_id = e.id "
+			+ "inner join employers as e on j.employer_id = e.user_id "
 			+ "inner join job_titles as jt on j.job_title_id = jt.id "
 			+ "inner join cities as ci on j.city_id = ci.id where j.is_active = false", nativeQuery = true)
 	List<JobAdvertisementDto> getAllPassiveJobAdvertisementWithDetail();
 
 	@Query(value="select j.id,e.company_name,jt.title,ci.city_name,j.amount,j.creation_date,j.dead_line,j.is_active "
 			+ "from job_advertisements as j "
-			+ "inner join employers as e on j.employer_id = e.id "
+			+ "inner join employers as e on j.employer_id = e.user_id "
 			+ "inner join job_titles as jt on j.job_title_id = jt.id "
 			+ "inner join cities as ci on j.city_id = ci.id", nativeQuery = true)
 	List<JobAdvertisementDto> getAllJobAdvertisementWithDetail();
 	
 	@Query(value="select j.id,e.company_name,jt.title,ci.city_name,j.amount,j.creation_date,j.dead_line,j.is_active "
 			+ "from job_advertisements as j "
-			+ "inner join employers as e on j.employer_id = e.id "
+			+ "inner join employers as e on j.employer_id = e.user_id "
 			+ "inner join job_titles as jt on j.job_title_id = jt.id "
 			+ "inner join cities as ci on j.city_id = ci.id "
 			+ "where j.employer_id=:employerId and j.is_active = true",nativeQuery = true)
@@ -52,7 +52,7 @@ public interface JobAdvertisementDao extends JpaRepository<JobAdvertisement, Int
 	
 	@Query(value="select j.id,e.company_name,jt.title,ci.city_name,j.amount,j.creation_date,j.dead_line,j.is_active "
 			+ "from job_advertisements as j "
-			+ "inner join employers as e on j.employer_id = e.id "
+			+ "inner join employers as e on j.employer_id = e.user_id "
 			+ "inner join job_titles as jt on j.job_title_id = jt.id "
 			+ "inner join cities as ci on j.city_id = ci.id "
 			+ "where j.employer_id=:employerId and j.is_active = false",nativeQuery = true)
@@ -60,7 +60,7 @@ public interface JobAdvertisementDao extends JpaRepository<JobAdvertisement, Int
 
 	@Query(value = "select j.id,e.company_name,jt.title,ci.city_name,j.amount,j.creation_date,j.dead_line "
 			+ "from job_advertisements as j "
-			+ "inner join employers as e on j.employer_id = e.id "
+			+ "inner join employers as e on j.employer_id = e.user_id "
 			+ "inner join job_titles as jt on j.job_title_id = jt.id "
 			+ "inner join cities as ci on j.city_id = ci.id "
 			+ "order by j.creation_date asc",nativeQuery = true)
@@ -68,7 +68,7 @@ public interface JobAdvertisementDao extends JpaRepository<JobAdvertisement, Int
 
 	@Query(value = "select j.id,e.company_name,jt.title,ci.city_name,j.amount,j.creation_date,j.dead_line "
 			+ "from job_advertisements as j "
-			+ "inner join employers as e on j.employer_id = e.id "
+			+ "inner join employers as e on j.employer_id = e.user_id "
 			+ "inner join job_titles as jt on j.job_title_id = jt.id "
 			+ "inner join cities as ci on j.city_id = ci.id "
 			+ "order by j.creation_date desc",nativeQuery = true)

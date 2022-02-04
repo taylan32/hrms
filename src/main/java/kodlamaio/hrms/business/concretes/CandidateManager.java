@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kodlamaio.hrms.business.abstracts.CandidateService;
+import kodlamaio.hrms.business.abstracts.ImageService;
 import kodlamaio.hrms.business.abstracts.UserService;
 import kodlamaio.hrms.business.constants.Messages;
 import kodlamaio.hrms.core.utilities.results.DataResult;
@@ -22,11 +23,13 @@ public class CandidateManager implements CandidateService {
 
 	private CandidateDao candidateDao;
 	private UserService userService;
+	private ImageService imageService;
 
 	@Autowired
-	public CandidateManager(CandidateDao candidateDao, UserService userService) {
+	public CandidateManager(CandidateDao candidateDao, UserService userService, ImageService imageService) {
 		this.candidateDao = candidateDao;
 		this.userService = userService;
+		this.imageService = imageService;
 	}
 
 	@Override
@@ -38,6 +41,9 @@ public class CandidateManager implements CandidateService {
 		}
 
 		this.candidateDao.save(candidate);
+		if(this.imageService.getByUserId(candidate.getId()).getData() == null) {
+			this.imageService.uploadDefaultImage(candidate);
+		}
 		return new SuccessResult(Messages.candidateAdded);
 	}
 

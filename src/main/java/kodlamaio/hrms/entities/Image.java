@@ -6,33 +6,36 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import kodlamaio.hrms.core.entities.User;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Data;
 
 @Data
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "candidate_abouts")
-public class CandidateAbout {
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+@Table(name = "images")
+public class Image {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
 
-	@ManyToOne()
-	@JoinColumn(name = "candidate_id")
-	private Candidate candidate;
+	@Column(name = "url")
+	@NotBlank(message = "resim adresi bulunamadi")
+	private String url;
 
-	@Column(name = "description")
-	@NotBlank(message = "aciklama bos olamaz")
-	private String description;
+	@OneToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 
 }

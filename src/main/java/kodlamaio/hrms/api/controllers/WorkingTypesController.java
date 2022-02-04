@@ -20,53 +20,57 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import kodlamaio.hrms.business.abstracts.JobExperimentService;
+import kodlamaio.hrms.business.abstracts.WorkingTypeService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.Result;
-import kodlamaio.hrms.entities.JobExperiment;
+import kodlamaio.hrms.entities.WorkingType;
 
 @RestController
-@RequestMapping("/api/jobexperiments")
-public class JobExperimentsController {
+@RequestMapping("/api/workingtypes")
+public class WorkingTypesController {
 
-	private JobExperimentService jobExperimentService;
+	private WorkingTypeService workingTypeService;
 
 	@Autowired
-	public JobExperimentsController(JobExperimentService jobExperimentService) {
-		this.jobExperimentService = jobExperimentService;
+	public WorkingTypesController(WorkingTypeService workingTypeService) {
+		this.workingTypeService = workingTypeService;
 	}
 
 	@PostMapping("/add")
-	public ResponseEntity<?> add(@Valid @RequestBody JobExperiment jobExperiment) {
-
-		return ResponseEntity.ok(this.jobExperimentService.add(jobExperiment));
-	}
-
-	@PostMapping("/delete")
-	public Result delete(@RequestBody JobExperiment jobExperiment) {
-		return this.jobExperimentService.delete(jobExperiment);
+	public ResponseEntity<?> add(@Valid @RequestBody WorkingType workingType) {
+		return ResponseEntity.ok(this.workingTypeService.add(workingType));
 	}
 
 	@PostMapping("/update")
-	public ResponseEntity<?> update(@Valid @RequestBody JobExperiment jobExperiment) {
-		return ResponseEntity.ok(this.jobExperimentService.update(jobExperiment));
+	public ResponseEntity<?> update(@Valid @RequestBody WorkingType workingType) {
+		return ResponseEntity.ok(this.workingTypeService.update(workingType));
+	}
+
+	@PostMapping("/delete")
+	public Result delete(@RequestBody WorkingType workingType) {
+		return this.workingTypeService.delete(workingType);
 	}
 
 	@GetMapping("/getAll")
-	public DataResult<List<JobExperiment>> getAllSorted(@RequestParam int candidateId) {
-		return this.jobExperimentService.getAllSorted(candidateId);
+	public DataResult<List<WorkingType>> getAll() {
+		return this.workingTypeService.getAll();
+	}
+
+	@GetMapping("/getById")
+	public DataResult<WorkingType> getById(@RequestParam int workingTypeId) {
+		return this.workingTypeService.getById(workingTypeId);
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public Map<String, String> handleValidationException(MethodArgumentNotValidException exceptions) {
-		Map<String, String> validaitonExceptions = new HashMap<String, String>();
+		Map<String, String> validationExceptions = new HashMap<String, String>();
 		exceptions.getBindingResult().getAllErrors().forEach((error) -> {
 			String fieldName = ((FieldError) error).getField();
 			String errorMessage = error.getDefaultMessage();
-			validaitonExceptions.put(fieldName, errorMessage);
+			validationExceptions.put(fieldName, errorMessage);
 		});
-		return validaitonExceptions;
+		return validationExceptions;
 	}
 
 }

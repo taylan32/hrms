@@ -5,27 +5,27 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kodlamaio.hrms.business.abstracts.JobExperimentService;
+import kodlamaio.hrms.business.abstracts.JobExperienceService;
 import kodlamaio.hrms.business.constants.Messages;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
-import kodlamaio.hrms.dataAccess.abstracts.JobExperimentDao;
-import kodlamaio.hrms.entities.JobExperiment;
+import kodlamaio.hrms.dataAccess.abstracts.JobExperienceDao;
+import kodlamaio.hrms.entities.JobExperience;
 
 @Service
-public class JobExperimentManager implements JobExperimentService {
+public class JobExperienceManager implements JobExperienceService {
 
-	private JobExperimentDao jobExperimentDao;
+	private JobExperienceDao jobExperimentDao;
 
 	@Autowired
-	public JobExperimentManager(JobExperimentDao jobExperimentDao) {
+	public JobExperienceManager(JobExperienceDao jobExperimentDao) {
 		this.jobExperimentDao = jobExperimentDao;
 	}
 
 	@Override
-	public Result add(JobExperiment jobExperiment) {
+	public Result add(JobExperience jobExperiment) {
 		if (checkIfContinue(jobExperiment)) {
 			jobExperiment.setContinued(true);
 			jobExperiment.setReleaseYear("Hala devam ediyor");
@@ -35,23 +35,23 @@ public class JobExperimentManager implements JobExperimentService {
 	}
 
 	@Override
-	public Result delete(JobExperiment jobExperiment) {
+	public Result delete(JobExperience jobExperiment) {
 		this.jobExperimentDao.delete(jobExperiment);
 		return new SuccessResult(Messages.jobExperimentDeleted);
 	}
 
 	@Override
-	public Result update(JobExperiment jobExperiment) {
+	public Result update(JobExperience jobExperiment) {
 		this.jobExperimentDao.save(jobExperiment);
 		return new SuccessResult(Messages.jobExperimentUpdated);
 	}
 
 	@Override
-	public DataResult<List<JobExperiment>> getAllSorted(int candidateId) {
-		return new SuccessDataResult<List<JobExperiment>>(this.jobExperimentDao.findAll());
+	public DataResult<List<JobExperience>> getAllSorted(int candidateId) {
+		return new SuccessDataResult<List<JobExperience>>(this.jobExperimentDao.findAll());
 	}
 
-	private boolean checkIfContinue(JobExperiment experiment) {
+	private boolean checkIfContinue(JobExperience experiment) {
 		if (experiment.getReleaseYear().isBlank()) {
 			return true;
 		}
