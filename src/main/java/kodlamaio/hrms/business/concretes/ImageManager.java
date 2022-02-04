@@ -72,6 +72,14 @@ public class ImageManager implements ImageService {
 
 	@Override
 	public Result upload(MultipartFile multipartFile, int userId) {
+		
+		Image currentImage = getByUserId(userId).getData();
+		if(currentImage != null) { // user already has an image
+			System.out.println(currentImage.getUser().getId());
+			System.out.println(currentImage.getId());
+			this.imageDao.deleteById(currentImage.getId());;
+		}
+		
 		try {
 			Map<?, ?> uploadImage = (Map<?, ?>) this.cloudinaryService.upload(multipartFile);
 			Image image = new Image();
