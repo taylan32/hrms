@@ -47,12 +47,12 @@ public class Messages {
 	public static String schoolDeleted = "okul silindi";
 	public static String schoolUpdated = "okul guncellendi";
 	public static String schoolExists = "okul daha once eklenmis";
-	public static String jobExperimentAdded= "is tecrübesi eklendi";
-	public static String jobExperimentDeleted= "is tecrübesi silindi";
-	public static String jobExperimentUpdated= "is tecrübesi guncellendi";
-	public static String languageAdded= "dil eklendi";
-	public static String languageDeleted= "dil silindi";
-	public static String languageUpdated= "dil guncellendi";
+	public static String jobExperimentAdded = "is tecrübesi eklendi";
+	public static String jobExperimentDeleted = "is tecrübesi silindi";
+	public static String jobExperimentUpdated = "is tecrübesi guncellendi";
+	public static String languageAdded = "dil eklendi";
+	public static String languageDeleted = "dil silindi";
+	public static String languageUpdated = "dil guncellendi";
 	public static String socialMediaAccountAdded = "hesap eklendi";
 	public static String socialMediaAccountDeleted = "hesap silindi";
 	public static String socialMediaAccountUpdated = "hesap guncellendi";
@@ -66,7 +66,7 @@ public class Messages {
 	public static String descriptionUpdated = "aciklama guncellendi";
 	public static String imageAdded = "fotograf eklendi";
 	public static String imageDeleted = "fotograf silindi";
-	public static String imageUpdated= "fotograf guncellendi";
+	public static String imageUpdated = "fotograf guncellendi";
 	public static String imageNotFound = "fotograf bulunumadi";
 	public static String workingTypeAdded = "calisma sekli eklendi";
 	public static String workingTypeUpdated = "calisma sekli guncellendi";
@@ -74,7 +74,10 @@ public class Messages {
 	public static String workingTimeAdded = "eklendi";
 	public static String workingTimeUpdated = "guncellendi";
 	public static String workingTimeDeleted = "silindi";
+	public static String staffAdded = "Personel kaydi basarili";
+	public static String staffDeleted = "Personel kaydi silindi";
+	public static String staffUpdated = "Personel bilgisi guncellendi";
+	public static String advertisementConfirmed = "ilan onaylandi";
+	public static String advertisementCannotBeConfirmed = "ilan onaylanamadi";
 
-	
-	
 }

@@ -24,7 +24,6 @@ import kodlamaio.hrms.business.abstracts.JobAdvertisementService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.entities.JobAdvertisement;
-import kodlamaio.hrms.entities.DTOs.JobAdvertisementDto;
 
 @RestController
 @RequestMapping("/api/jobadvertisements")
@@ -42,62 +41,72 @@ public class JobAdvertisementsController {
 		return ResponseEntity.ok(this.advertisementService.add(jobAdvertisement));
 	}
 
-	@PostMapping("/delete")
-	public Result delete(@RequestBody JobAdvertisement jobAdvertisement) {
-		return this.advertisementService.delete(jobAdvertisement);
-	}
-
 	@PostMapping("/update")
 	public ResponseEntity<?> update(@Valid @RequestBody JobAdvertisement jobAdvertisement) {
 		return ResponseEntity.ok(this.advertisementService.update(jobAdvertisement));
 	}
 
-	@GetMapping("/getAll")
-	public DataResult<List<JobAdvertisement>> getAll() {
-		return this.advertisementService.getAll();
-	}
-
-	@GetMapping("/getById")
-	public DataResult<JobAdvertisement> getById(@RequestParam int jobAdvertisementId) {
-		return this.advertisementService.getById(jobAdvertisementId);
+	@PostMapping("/delete")
+	public Result delete(@RequestBody JobAdvertisement jobAdvertisement) {
+		return this.advertisementService.delete(jobAdvertisement);
 	}
 
 	@GetMapping("/getByEmployerId")
-	public DataResult<List<JobAdvertisement>> getByEmployerId(@RequestParam int employerId) {
-		return this.advertisementService.getByEmployerId(employerId);
+	public DataResult<List<JobAdvertisement>> getByEmployer_Id(@RequestParam int employerId) {
+		return this.advertisementService.getByEmployer_Id(employerId);
+	}
+
+	@GetMapping("/geyByCityId")
+	public DataResult<List<JobAdvertisement>> getByCity_Id(@RequestParam int cityId) {
+		return this.advertisementService.getByCity_Id(cityId);
 	}
 
 	@GetMapping("/getByJobTitleId")
-	public DataResult<List<JobAdvertisement>> getByJobTitleId(@RequestParam int jobTitleId) {
-		return this.advertisementService.getByJobTitleId(jobTitleId);
+	public DataResult<List<JobAdvertisement>> getByJobTitle_Id(@RequestParam int jobTitleId) {
+		return this.advertisementService.getByJobTitle_Id(jobTitleId);
 	}
 
-	@GetMapping("/getByCityId")
-	public DataResult<List<JobAdvertisement>> getByCityId(@RequestParam int cityId) {
-		return this.advertisementService.getByCityId(cityId);
+	@GetMapping("/getAllActiveAdvertisement")
+	public DataResult<List<JobAdvertisement>> getAllActiveJobAdvertisement() {
+		return this.advertisementService.getAllActiveJobAdvertisement();
 	}
 
-	@GetMapping("/getllAllActive")
-	public DataResult<List<JobAdvertisement>> getAllActiveJobAdvertisements() {
-		return this.advertisementService.getAllActiveJobAdvertisements();
+	@GetMapping("/getAllWaitingForConfirmation")
+	public DataResult<List<JobAdvertisement>> getAllWaitingForConfirmation() {
+		return this.advertisementService.getAllWaitingForConfirmation();
 	}
 
-	@GetMapping("/getAllPassive")
-	public DataResult<List<JobAdvertisement>> getAllPassiveJobAdvertisements() {
-		return this.advertisementService.getAllPassiveJobAdvertisements();
+	@GetMapping("/getAllActiveAdvertisementByEmployerId")
+	public DataResult<List<JobAdvertisement>> getAllActiveJobAdvertisementByEmployerId(@RequestParam int employerId) {
+		return this.advertisementService.getAllActiveJobAdvertisementByEmployerId(employerId);
 	}
 
-	@GetMapping("/getAllActiveByEmployerId")
-	public DataResult<List<JobAdvertisement>> getAllActiveJobAdvertisementsByEmployerId(@RequestParam int employerId) {
-		return this.advertisementService.getAllActiveJobAdvertisementsByEmployerId(employerId);
+	@GetMapping("/getAllPassiveAdvertisementByEmployerId")
+	public DataResult<List<JobAdvertisement>> getAllPassiveJobAdvertisementByEmployerId(@RequestParam int employerId) {
+		return this.advertisementService.getAllPassiveJobAdvertisementByEmployerId(employerId);
 	}
 
-	@GetMapping("/getAllPassiveByEmployerId")
-	public DataResult<List<JobAdvertisement>> getAllPassiveJobAdvertisementsByEmployerId(@RequestParam int employerId) {
-		return this.advertisementService.getAllPassiveJobAdvertisementsByEmployerId(employerId);
+	@GetMapping("/getAllActiveAdvertisementByCityId")
+	public DataResult<List<JobAdvertisement>> getAllActiveAdvertisementByCityId(@RequestParam int cityId) {
+		return this.advertisementService.getAllActiveAdvertisementByCityId(cityId);
 	}
 
-	@GetMapping("/setIsActiceFalse")
+	@GetMapping("/getAllActiveAdvertisementByJobTitleId")
+	public DataResult<List<JobAdvertisement>> getAllActiveAdvertisementByJobTitleId(@RequestParam int jobTitleId) {
+		return this.advertisementService.getAllActiveAdvertisementByJobTitleId(jobTitleId);
+	}
+
+	@GetMapping("/getAllActiveAdvertisementSortedDESC")
+	public DataResult<List<JobAdvertisement>> getAllActiveAdvertisementSortedDESC() {
+		return this.advertisementService.getAllActiveAdvertisementSortedDESC();
+	}
+
+	@GetMapping("/getAllActiceAdvertisementSortedASC")
+	public DataResult<List<JobAdvertisement>> getAllActiveAdvertisementSortedASC() {
+		return this.advertisementService.getAllActiveAdvertisementSortedASC();
+	}
+
+	@GetMapping("/setIsActiveFalse")
 	public Result setIsActiveFalse(@RequestParam int jobAdvertisementId) {
 		return this.advertisementService.setIsActiveFalse(jobAdvertisementId);
 	}
@@ -107,45 +116,9 @@ public class JobAdvertisementsController {
 		return this.advertisementService.setIsActiveTrue(jobAdvertisementId);
 	}
 
-	@GetMapping("/getAllActiveWithDetails")
-	public DataResult<List<JobAdvertisementDto>> getAllActiveJobAdvertisementWithDetail(){
-		return this.advertisementService.getAllActiveJobAdvertisementWithDetail();
-	}
-	
-	@GetMapping("/getAllPassiveWithDetail")
-	public DataResult<List<JobAdvertisementDto>> getAllPassiveJobAdvertisementWithDetail(){
-		return this.advertisementService.getAllPassiveJobAdvertisementWithDetail();
-	}
-	
-	@GetMapping("/getAllWithDetail")
-	public DataResult<List<JobAdvertisementDto>> getAllJobAdvertisementWithDetail(){
-		return this.advertisementService.getAllJobAdvertisementWithDetail();
-	}
-	
-	@GetMapping("/getAllActiveWithDetailByEmployerId")
-	public DataResult<List<JobAdvertisementDto>> getAllActiveJobAdvertisementWithDetailByEmployerId(@RequestParam int employerId){
-		return this.advertisementService.getAllActiveJobAdvertisementWithDetailByEmployerId(employerId);
-	}
-	
-	@GetMapping("/getAllPassiveWithDetailByEmployerId")
-	public DataResult<List<JobAdvertisementDto>> getAllPassiveJobAdvertisementWithDetailByEmployerId(int employerId){
-		return this.advertisementService.getAllPassiveJobAdvertisementWithDetailByEmployerId(employerId);	
-	}
-	
-	@GetMapping("/getAllActiveWithDetailASC")
-	public DataResult<List<JobAdvertisementDto>> getAllActiveJobAdvertisementWithDetailSortedASC(){
-		return this.advertisementService.getAllActiveJobAdvertisementWithDetailSortedASC();
-	}
-	
-	@GetMapping("/getAllActiveWithDetailDESC")
-	DataResult<List<JobAdvertisementDto>> getAllActiveJobAdvertisementWithDetailSortedDESC(){
-		return this.advertisementService.getAllActiveJobAdvertisementWithDetailSortedDESC();
-	}
-	
-	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException exceptions) {
+	public Map<String, String> handleValidationExcepiton(MethodArgumentNotValidException exceptions) {
 		Map<String, String> validationExceptions = new HashMap<String, String>();
 		exceptions.getBindingResult().getAllErrors().forEach((error) -> {
 			String fieldName = ((FieldError) error).getField();

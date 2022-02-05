@@ -1,93 +1,57 @@
 package kodlamaio.hrms.dataAccess.abstracts;
 
 import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import kodlamaio.hrms.entities.JobAdvertisement;
-import kodlamaio.hrms.entities.DTOs.JobAdvertisementDto;
 
 public interface JobAdvertisementDao extends JpaRepository<JobAdvertisement, Integer> {
 
-	@Query("FROM JobAdvertisement where id=:jobAdvertisementId")
-	JobAdvertisement getById(int jobAdvertisementId);
+	List<JobAdvertisement> getByEmployer_Id(int employerId);
 
-	List<JobAdvertisement> getByEmployerId(int employerId);
+	List<JobAdvertisement> getByCity_Id(int cityId);
 
-	List<JobAdvertisement> getByCityId(int cityId);
+	List<JobAdvertisement> getByJobTitle_Id(int jobTitleId);
 
-	List<JobAdvertisement> getByJobTitleId(int jobTitleId);
-
-	@Query("select j from JobAdvertisement j where j.isActive = true")
+	@Query("select j from JobAdvertisement j where j.isActive = true and j.isConfirmed = true")
 	List<JobAdvertisement> getAllActiveJobAdvertisement();
 
+	@Query("FROM JobAdvertisement where isConfirmed = false")
+	List<JobAdvertisement> getAllWaitingForConfirmation();
 
-	@Query(value = "select j.id, e.company_name,jt.title,ci.city_name,j.amount,j.creation_date,j.dead_line "
-			+ "from job_advertisements as j " + "inner join employers as e on j.employer_id = e.user_id "
-			+ "inner join job_titles as jt on j.job_title_id = jt.id "
-			+ "inner join cities as ci on j.city_id = ci.id where j.is_active = true", nativeQuery = true)
-	List<JobAdvertisementDto> getAllActiveJobAdvertisementWithDetail();
-
-	@Query(value = "select j.id, e.company_name,jt.title,ci.city_name, j.amount,j.creation_date,j.dead_line "
-			+ "from job_advertisements as j "
-			+ "inner join employers as e on j.employer_id = e.user_id "
-			+ "inner join job_titles as jt on j.job_title_id = jt.id "
-			+ "inner join cities as ci on j.city_id = ci.id where j.is_active = false", nativeQuery = true)
-	List<JobAdvertisementDto> getAllPassiveJobAdvertisementWithDetail();
-
-	@Query(value="select j.id,e.company_name,jt.title,ci.city_name,j.amount,j.creation_date,j.dead_line,j.is_active "
-			+ "from job_advertisements as j "
-			+ "inner join employers as e on j.employer_id = e.user_id "
-			+ "inner join job_titles as jt on j.job_title_id = jt.id "
-			+ "inner join cities as ci on j.city_id = ci.id", nativeQuery = true)
-	List<JobAdvertisementDto> getAllJobAdvertisementWithDetail();
-	
-	@Query(value="select j.id,e.company_name,jt.title,ci.city_name,j.amount,j.creation_date,j.dead_line,j.is_active "
-			+ "from job_advertisements as j "
-			+ "inner join employers as e on j.employer_id = e.user_id "
-			+ "inner join job_titles as jt on j.job_title_id = jt.id "
-			+ "inner join cities as ci on j.city_id = ci.id "
-			+ "where j.employer_id=:employerId and j.is_active = true",nativeQuery = true)
-	List<JobAdvertisementDto> getAllActiveJobAdvertisementWithDetailByEmployerId(int employerId);
-	
-	@Query(value="select j.id,e.company_name,jt.title,ci.city_name,j.amount,j.creation_date,j.dead_line,j.is_active "
-			+ "from job_advertisements as j "
-			+ "inner join employers as e on j.employer_id = e.user_id "
-			+ "inner join job_titles as jt on j.job_title_id = jt.id "
-			+ "inner join cities as ci on j.city_id = ci.id "
-			+ "where j.employer_id=:employerId and j.is_active = false",nativeQuery = true)
-	List<JobAdvertisementDto> getAllPassiveJobAdvertisementWithDetailByEmployerId(int employerId);
-
-	@Query(value = "select j.id,e.company_name,jt.title,ci.city_name,j.amount,j.creation_date,j.dead_line "
-			+ "from job_advertisements as j "
-			+ "inner join employers as e on j.employer_id = e.user_id "
-			+ "inner join job_titles as jt on j.job_title_id = jt.id "
-			+ "inner join cities as ci on j.city_id = ci.id "
-			+ "order by j.creation_date asc",nativeQuery = true)
-	List<JobAdvertisementDto> getAllActiveJobAdvertisementWithDetailSortedASC();
-
-	@Query(value = "select j.id,e.company_name,jt.title,ci.city_name,j.amount,j.creation_date,j.dead_line "
-			+ "from job_advertisements as j "
-			+ "inner join employers as e on j.employer_id = e.user_id "
-			+ "inner join job_titles as jt on j.job_title_id = jt.id "
-			+ "inner join cities as ci on j.city_id = ci.id "
-			+ "order by j.creation_date desc",nativeQuery = true)
-	List<JobAdvertisementDto> getAllActiveJobAdvertisementWithDetailSortedDESC();
-
-
-	@Query("FROM JobAdvertisement where isActive = false")
-	List<JobAdvertisement> getAllPassiveJobAdvertisement();
-
-	@Query("FROM JobAdvertisement where isActive = true and employer_id=:employerId")
+	@Query("FROM JobAdvertisement where isActive = true and employer.id=:employerId and isConfirmed = true")
 	List<JobAdvertisement> getAllActiveJobAdvertisementByEmployerId(int employerId);
 
-	@Query("FROM JobAdvertisement where isActive = false and employer_id=:employerId")
+	@Query("FROM JobAdvertisement where isActive = false and employer.id=:employerId")
 	List<JobAdvertisement> getAllPassiveJobAdvertisementByEmployerId(int employerId);
+
+	@Query("FROM JobAdvertisement where isActive = true and city.id=:cityId and isConfirmed = true")
+	List<JobAdvertisement> getAllActiveAdvertisementByCityId(int cityId);
+
+	@Query("FROM JobAdvertisement where isActive = true and jobTitle.id=:jobTitleId and isConfirmed = true")
+	List<JobAdvertisement> getAllActiveAdvertisementByJobTitleId(int jobTitleId);
+
+	@Query("FROM JobAdvertisement where isActive = true and isConfirmed = true ORDER BY creationDate DESC")
+	List<JobAdvertisement> getAllActiveAdvertisementSortedDESC();
+
+	@Query("FROM JobAdvertisement where isActive = true and isConfirmed = true ORDER BY creationDate ASC")
+	List<JobAdvertisement> getAllActiveAdvertisementSortedASC();
 
 	@Query("update JobAdvertisement j set j.isActive = false where j.id=:jobAdvertisementId")
 	void setIsActiveFalse(int jobAdvertisementId);
 
 	@Query("update JobAdvertisement j set j.isActive = true where j.id=:jobAdvertisementId")
 	void setIsActiveTrue(int jobAdvertisementId);
+
+	// @Query("update JobAdvertisement j set j.isConfirmed = true where
+	// j.id=:jobAdvertisementId")
+	@Query(value = "update job_advertisements set is_confirmed = true where id=id", nativeQuery = true)
+	@Transactional
+	@Modifying
+	void confirmAdvertisement(int id);
 
 }

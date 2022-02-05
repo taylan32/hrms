@@ -9,9 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-	
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,21 +32,18 @@ public class JobAdvertisement {
 	private int id;
 
 	/*
-	@Column(name = "employer_id")
-	private int employerId;
+	 * @Column(name = "employer_id") private int employerId;
+	 * 
+	 * @Column(name = "city_id") private int cityId;
+	 * 
+	 * 
+	 * @Column(name = "job_title_id") private int jobTitleId;
+	 */
 
-	@Column(name = "city_id")
-	private int cityId;
-	
-	
-	@Column(name = "job_title_id")
-	private int jobTitleId;
-	*/
-	
 	@ManyToOne
 	@JoinColumn(name = "employer_id")
 	private Employer employer;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "city_id")
 	private City city;
@@ -51,7 +51,7 @@ public class JobAdvertisement {
 	@ManyToOne()
 	@JoinColumn(name = "job_title_id")
 	private JobTitle jobTitle;
-	
+
 	@NotBlank(message = "tanim bos olamaz")
 	@Column(name = "description")
 	private String description;
@@ -74,12 +74,21 @@ public class JobAdvertisement {
 	@Column(name = "is_active")
 	private boolean isActive;
 	
+	@Column(name = "is_confirmed")
+	private boolean isConfirmed;
+
 	@ManyToOne
 	@JoinColumn(name = "working_time_id")
 	private WorkingTime workingTime;
 
-	
 	@ManyToOne()
 	@JoinColumn(name = "working_type_id")
 	private WorkingType workingType;
+
+	@JsonIgnore
+	@OneToOne(mappedBy = "jobAdvertisement")
+	private JobAdvertisementConfirmation jobAdvertisementConfirmation;
+	
+	
+	
 }
