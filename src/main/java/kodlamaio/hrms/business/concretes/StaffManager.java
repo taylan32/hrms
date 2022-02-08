@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kodlamaio.hrms.business.abstracts.EmployerService;
+import kodlamaio.hrms.business.abstracts.JobAdvertisementService;
 import kodlamaio.hrms.business.abstracts.StaffService;
 import kodlamaio.hrms.business.constants.Messages;
 import kodlamaio.hrms.core.utilities.results.DataResult;
@@ -19,10 +21,16 @@ import kodlamaio.hrms.entities.Staff;
 public class StaffManager implements StaffService {
 	
 	private StaffDao staffDao;
+	private JobAdvertisementService jobAdvertisementService;
+	private EmployerService employerService;
 	
 	@Autowired
-	public StaffManager(StaffDao staffDao) {
+	public StaffManager(StaffDao staffDao, 
+						JobAdvertisementService jobAdvertisementService, 
+						EmployerService employerService) {
 		this.staffDao = staffDao;
+		this.jobAdvertisementService = jobAdvertisementService;
+		this.employerService = employerService;
 	}
 
 	@Override
@@ -55,6 +63,18 @@ public class StaffManager implements StaffService {
 		}
 		
 		return new SuccessDataResult<Staff>(this.staffDao.getById(id));
+	}
+
+	@Override
+	public Result confirmAdvertisement(int jobAdvertisementId) {
+		this.jobAdvertisementService.confirmAdvertisement(jobAdvertisementId);
+		return new SuccessResult();
+	}
+
+	@Override
+	public Result confirmEmployer(int employerId) {
+		this.employerService.confirmEmployer(employerId);
+		return new SuccessResult();
 	}
 
 }

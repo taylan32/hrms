@@ -2,6 +2,7 @@ package kodlamaio.hrms.dataAccess.abstracts;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -40,6 +41,9 @@ public interface JobAdvertisementDao extends JpaRepository<JobAdvertisement, Int
 
 	@Query("FROM JobAdvertisement where isActive = true and isConfirmed = true ORDER BY creationDate ASC")
 	List<JobAdvertisement> getAllActiveAdvertisementSortedASC();
+	
+	@Query("FROM JobAdvertisement where isActive = true and isConfirmed = true and employer.id=:employerId ORDER BY creationDate DESC ")
+	List<JobAdvertisement> getAllActiveAdvertisementByEmployerIdSortedDESC(int employerId);
 
 	@Query("update JobAdvertisement j set j.isActive = false where j.id=:jobAdvertisementId")
 	void setIsActiveFalse(int jobAdvertisementId);
@@ -49,9 +53,11 @@ public interface JobAdvertisementDao extends JpaRepository<JobAdvertisement, Int
 
 	// @Query("update JobAdvertisement j set j.isConfirmed = true where
 	// j.id=:jobAdvertisementId")
-	@Query(value = "update job_advertisements set is_confirmed = true where id=id", nativeQuery = true)
+	@Query(value = "update job_advertisements set is_confirmed = true where id=jobAdvertisementId", nativeQuery = true)
 	@Transactional
 	@Modifying
-	void confirmAdvertisement(int id);
+	void confirmAdvertisement(int jobAdvertisementId);
+
+	List<JobAdvertisement> getAllByIsActiveAndIsConfirmed(boolean isActive, boolean isConfirmed, Pageable pageable);
 
 }

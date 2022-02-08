@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +28,7 @@ import kodlamaio.hrms.entities.JobAdvertisement;
 
 @RestController
 @RequestMapping("/api/jobadvertisements")
+@CrossOrigin
 public class JobAdvertisementsController {
 
 	private JobAdvertisementService advertisementService;
@@ -101,7 +103,7 @@ public class JobAdvertisementsController {
 		return this.advertisementService.getAllActiveAdvertisementSortedDESC();
 	}
 
-	@GetMapping("/getAllActiceAdvertisementSortedASC")
+	@GetMapping("/getAllActiveAdvertisementSortedASC")
 	public DataResult<List<JobAdvertisement>> getAllActiveAdvertisementSortedASC() {
 		return this.advertisementService.getAllActiveAdvertisementSortedASC();
 	}
@@ -114,6 +116,21 @@ public class JobAdvertisementsController {
 	@GetMapping("/setIsActiveTrue")
 	public Result setIsActiveTrue(@RequestParam int jobAdvertisementId) {
 		return this.advertisementService.setIsActiveTrue(jobAdvertisementId);
+	}
+
+	@GetMapping("/getAllActivePageable")
+	public DataResult<List<JobAdvertisement>> getAllActiveByPage(@RequestParam int pageNo, @RequestParam int pageSize) {
+		return this.advertisementService.getAllActiveByPage(pageNo, pageSize);
+	}
+
+	@GetMapping("/getAllActiveAdvertisementSortedDESCTop6")
+	public DataResult<List<JobAdvertisement>> getAllActiveAdvertisementSortedDESCTop6() {
+		return this.advertisementService.getAllActiveAdvertisementSortedDESCTop6();
+	}
+
+	@GetMapping("/getAllActiveAdvertisementByEmployerIdSortedDESC")
+	public DataResult<List<JobAdvertisement>> getAllActiveAdvertisementByEmployerIdSortedDESC(int employerId) {
+		return this.advertisementService.getAllActiveAdvertisementByEmployerIdSortedDESC(employerId);
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)

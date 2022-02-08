@@ -68,4 +68,8 @@ public class Candidate extends User {
 	@OneToMany(mappedBy = "candidate")
 	private List<SocialMediaAccount> socialMediaAccounts;
 
+	@JsonIgnore
+	@OneToMany(mappedBy = "candidate")
+	private List<FavouriteJobAdvertisement> favouriteJobAdvertisements;
+
 }

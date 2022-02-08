@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +28,7 @@ import kodlamaio.hrms.entities.Staff;
 
 @RestController
 @RequestMapping("/api/staffs")
+@CrossOrigin
 public class StaffsController {
 
 	private StaffService staffService;
@@ -61,6 +63,17 @@ public class StaffsController {
 		return this.staffService.getById(staffId);
 	}
 
+	
+	@GetMapping("/confirmAdvertisement")
+	public Result confirmAdvertisement(@RequestParam int advertisementId) {
+		return this.staffService.confirmAdvertisement(advertisementId);
+	}
+	
+	@GetMapping("/confirmEmployer")
+	public Result confirmEmployer(@RequestParam int employerId) {
+		return this.staffService.confirmEmployer(employerId);
+	}
+	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public Map<String, String> handleValidationException(MethodArgumentNotValidException exceptions) {

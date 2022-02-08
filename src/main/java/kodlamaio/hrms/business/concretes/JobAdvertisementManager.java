@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import kodlamaio.hrms.business.abstracts.JobAdvertisementService;
@@ -182,11 +184,29 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 
 	@Override
 	public Result confirmAdvertisement(int jobAdvertisementId) {
-		if(!this.jobAdvertisementDao.existsById(jobAdvertisementId)) {
+		if (!this.jobAdvertisementDao.existsById(jobAdvertisementId)) {
 			return new ErrorResult(Messages.advertisementNotFound);
 		}
 		this.jobAdvertisementDao.confirmAdvertisement(jobAdvertisementId);
 		return new SuccessResult();
+	}
+
+	@Override
+	public DataResult<List<JobAdvertisement>> getAllActiveByPage(int pageNo, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+		return new SuccessDataResult<List<JobAdvertisement>>(
+				this.jobAdvertisementDao.getAllByIsActiveAndIsConfirmed(true, true, pageable));
+	}
+
+	@Override
+	public DataResult<List<JobAdvertisement>> getAllActiveAdvertisementSortedDESCTop6() {
+
+		return new SuccessDataResult<List<JobAdvertisement>>(getAllActiveByPage(1, 6).getData());
+	}
+	
+	@Override
+	public DataResult<List<JobAdvertisement>>getAllActiveAdvertisementByEmployerIdSortedDESC(int employerId){
+		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.getAllActiveAdvertisementByEmployerIdSortedDESC(employerId));
 	}
 
 }
