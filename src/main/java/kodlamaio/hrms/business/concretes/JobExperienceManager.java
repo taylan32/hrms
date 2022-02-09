@@ -48,7 +48,7 @@ public class JobExperienceManager implements JobExperienceService {
 
 	@Override
 	public DataResult<List<JobExperience>> getAllSorted(int candidateId) {
-		return new SuccessDataResult<List<JobExperience>>(this.jobExperimentDao.findAll());
+		return new SuccessDataResult<List<JobExperience>>(this.jobExperimentDao.getAllByCandidateIdSorted(candidateId));
 	}
 
 	private boolean checkIfContinue(JobExperience experiment) {

@@ -129,8 +129,26 @@ public class JobAdvertisementsController {
 	}
 
 	@GetMapping("/getAllActiveAdvertisementByEmployerIdSortedDESC")
-	public DataResult<List<JobAdvertisement>> getAllActiveAdvertisementByEmployerIdSortedDESC(int employerId) {
+	public DataResult<List<JobAdvertisement>> getAllActiveAdvertisementByEmployerIdSortedDESC(
+			@RequestParam int employerId) {
 		return this.advertisementService.getAllActiveAdvertisementByEmployerIdSortedDESC(employerId);
+	}
+
+	@GetMapping("/getAllActiveAdvertisementFilteredByCityAndJobTitleAndWorkingTimeAndWorkingType")
+	public DataResult<List<JobAdvertisement>> getAllActiveAdvertisementFilteredByCityAndJobTitleAndWorkingTimeAndWorkingType(
+			@RequestParam int cityId, @RequestParam int jobTitleId, @RequestParam int workingTimeId,
+			@RequestParam int workingTypeId) {
+		return this.advertisementService.getAllActiveAdvertisementFilteredByCityAndJobTitleAndWorkingTimeAndWorkingType(
+				cityId, jobTitleId, workingTimeId, workingTypeId);
+	}
+
+	@GetMapping("/getAllActiveAdvertisementPageableFilteredByCityAndJobTitleAndWorkingTimeAndWorkingType")
+	public DataResult<List<JobAdvertisement>> getAllActiveAdvertisementPageableFilteredByCityAndJobTitleAndWorkingTimeAndWorkingType(
+			@RequestParam int cityId, @RequestParam int jobTitleId, @RequestParam int workingTimeId,
+			@RequestParam int workingTypeId, @RequestParam int pageNo, @RequestParam int pageSize) {
+		return this.advertisementService
+				.getAllActiveAdvertisementPageableFilteredByCityAndJobTitleAndWorkingTimeAndWorkingType(cityId,
+						jobTitleId, workingTimeId, workingTypeId, pageNo, pageSize);
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)

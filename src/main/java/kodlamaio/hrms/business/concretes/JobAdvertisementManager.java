@@ -1,8 +1,11 @@
 package kodlamaio.hrms.business.concretes;
 
 import java.sql.Date;
-
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -203,10 +206,54 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 
 		return new SuccessDataResult<List<JobAdvertisement>>(getAllActiveByPage(1, 6).getData());
 	}
-	
+
 	@Override
-	public DataResult<List<JobAdvertisement>>getAllActiveAdvertisementByEmployerIdSortedDESC(int employerId){
-		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.getAllActiveAdvertisementByEmployerIdSortedDESC(employerId));
+	public DataResult<List<JobAdvertisement>> getAllActiveAdvertisementByEmployerIdSortedDESC(int employerId) {
+		return new SuccessDataResult<List<JobAdvertisement>>(
+				this.jobAdvertisementDao.getAllActiveAdvertisementByEmployerIdSortedDESC(employerId));
+	}
+
+	@Override
+	public DataResult<List<JobAdvertisement>> getAllActiveAdvertisementFilteredByCityAndJobTitleAndWorkingTimeAndWorkingType(
+			int cityId, int jobTitleId, int workingTimeId, int workingTypeId) {
+
+		List<JobAdvertisement> result = new ArrayList<JobAdvertisement>();
+		Stream<JobAdvertisement> stream = getAllActiveAdvertisementSortedDESC().getData().stream();
+
+		Predicate<JobAdvertisement> cityCondition = cityId != 0
+				? (jobAdvertisement -> jobAdvertisement.getCity().getId() == cityId)
+				: (jobAdvertisement -> jobAdvertisement.getCity().getId() > 0);
+		Predicate<JobAdvertisement> jobTitleCondition = jobTitleId != 0
+				? (jobAdvertisement -> jobAdvertisement.getJobTitle().getId() == jobTitleId)
+				: (jobAdvertisement -> jobAdvertisement.getJobTitle().getId() > 0);
+		Predicate<JobAdvertisement> workingTimeCondition = workingTimeId != 0
+				? (jobAdvertisement -> jobAdvertisement.getWorkingTime().getId() == workingTimeId)
+				: (jobAdvertisement -> jobAdvertisement.getWorkingTime().getId() > 0);
+		Predicate<JobAdvertisement> workingTypeCondition = workingTypeId != 0
+				? (jobAdvertisement -> jobAdvertisement.getWorkingType().getId() == workingTypeId)
+				: (jobAdvertisement -> jobAdvertisement.getWorkingType().getId() > 0);
+
+		stream.filter(workingTypeCondition).filter(workingTimeCondition).filter(jobTitleCondition).filter(cityCondition)
+				.forEach(jobAdvertisement -> result.add(jobAdvertisement));
+
+		return new SuccessDataResult<List<JobAdvertisement>>(result);
+
+	}
+
+	@Override
+	public DataResult<List<JobAdvertisement>> getAllActiveAdvertisementPageableFilteredByCityAndJobTitleAndWorkingTimeAndWorkingType(
+			int cityId, int jobTitleId, int workingTimeId, int workingTypeId, int pageNo, int pageSize) {
+
+		int skipCount = (pageNo - 1) * pageSize;
+
+		List<JobAdvertisement> result = getAllActiveAdvertisementFilteredByCityAndJobTitleAndWorkingTimeAndWorkingType(
+				cityId, jobTitleId, workingTimeId, workingTypeId).getData();
+
+		return new SuccessDataResult<List<JobAdvertisement>>(
+				result.stream().skip(skipCount).collect(Collectors.toList()));
+		
+		
+
 	}
 
 }

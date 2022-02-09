@@ -9,6 +9,7 @@ import kodlamaio.hrms.entities.CandidateAbout;
 
 public interface CandidateAboutDao extends JpaRepository<CandidateAbout, Integer>{
 
-	@Query("FROM CandidateAbout where candidate.id=:candidateId")
-	List<CandidateAbout> getOne(int candidateId);
+
+	@Query("select c FROM CandidateAbout c where c.candidate.id=:candidateId")
+	List<CandidateAbout> getByCandidateId(int candidateId);
 }

@@ -27,7 +27,7 @@ import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.entities.SocialMediaAccount;
 
 @RestController
-@RequestMapping("api/socialmediaaccounts")
+@RequestMapping("/api/socialmediaaccounts")
 @CrossOrigin
 public class SocialMediaAccountsController {
 

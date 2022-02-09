@@ -10,7 +10,7 @@ import kodlamaio.hrms.entities.JobExperience;
 public interface JobExperienceDao extends JpaRepository<JobExperience, Integer> {
 
 		
-	@Query(value= "select * from job_experiences where candidate_id = candidateId order by release_year desc", nativeQuery = true)
+	@Query("Select e FROM JobExperience e where candidate.id=:candidateId ORDER BY releaseYear DESC ")
 	List<JobExperience> getAllByCandidateIdSorted(int candidateId);
 	
 }

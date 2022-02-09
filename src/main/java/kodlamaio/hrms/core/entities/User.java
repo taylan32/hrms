@@ -7,12 +7,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Length;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import kodlamaio.hrms.entities.Image;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -39,6 +45,11 @@ public class User {
 	@Length(min =  4, message = "sifre en az 4 karakterden olusmali")
 	@NotBlank(message = "sifre bos birakilamaz")
 	private String password;
+	
+	@OneToOne(mappedBy = "user")
+	@JoinColumn(name = "image_id",referencedColumnName = "id")
+	@JsonIgnoreProperties(value = {"user"})
+	Image image;
 	
 
 }

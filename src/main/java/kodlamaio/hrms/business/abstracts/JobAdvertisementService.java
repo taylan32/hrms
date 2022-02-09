@@ -37,9 +37,15 @@ public interface JobAdvertisementService extends BaseEntityService<JobAdvertisem
 	Result confirmAdvertisement(int jobAdvertisementId);
 
 	DataResult<List<JobAdvertisement>> getAllActiveByPage(int pageNo, int pageSize);
-	
+
 	DataResult<List<JobAdvertisement>> getAllActiveAdvertisementSortedDESCTop6();
-	
+
 	DataResult<List<JobAdvertisement>> getAllActiveAdvertisementByEmployerIdSortedDESC(int employerId);
+
+	DataResult<List<JobAdvertisement>> getAllActiveAdvertisementFilteredByCityAndJobTitleAndWorkingTimeAndWorkingType(
+			int cityId, int jobTitleId, int workingTimeId, int workingTypeId);
+
+	DataResult<List<JobAdvertisement>> getAllActiveAdvertisementPageableFilteredByCityAndJobTitleAndWorkingTimeAndWorkingType(
+			int cityId, int jobTitleId, int workingTimeId, int workingTypeId, int pageNo, int pageSize);
 
 }

@@ -47,7 +47,7 @@ public class CandidateAboutManager implements CandidateAboutService {
 
 	@Override
 	public DataResult<List<CandidateAbout>> getOne(int candidateId) {
-		return new SuccessDataResult<List<CandidateAbout>>(this.candidateAboutDao.getOne(candidateId));
+		return new SuccessDataResult<List<CandidateAbout>>(this.candidateAboutDao.getByCandidateId(candidateId));
 	}
 
 }

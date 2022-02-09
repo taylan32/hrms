@@ -55,7 +55,7 @@ public class CandidateAboutsController {
 	}
 
 	@GetMapping("/getOne")
-	public DataResult<List<CandidateAbout>> getOne(@RequestParam int candidateId) {
+	public DataResult<List<CandidateAbout>> getOne(@RequestParam("candidateId") int candidateId) {
 		return this.candidateAboutService.getOne(candidateId);
 	}
 
@@ -71,5 +71,6 @@ public class CandidateAboutsController {
 
 		return validationExceptions;
 	}
+	
 
 }

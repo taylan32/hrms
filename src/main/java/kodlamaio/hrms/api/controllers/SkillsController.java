@@ -27,7 +27,7 @@ import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.entities.Skill;
 
 @RestController
-@RequestMapping("/api/skilld")
+@RequestMapping("/api/skills")
 @CrossOrigin
 public class SkillsController {
 
