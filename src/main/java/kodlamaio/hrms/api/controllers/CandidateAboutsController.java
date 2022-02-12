@@ -58,6 +58,11 @@ public class CandidateAboutsController {
 	public DataResult<List<CandidateAbout>> getOne(@RequestParam("candidateId") int candidateId) {
 		return this.candidateAboutService.getOne(candidateId);
 	}
+	
+	@GetMapping("/getById")
+	public DataResult<CandidateAbout> getById(@RequestParam int id){
+		return this.candidateAboutService.getById(id);
+	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)

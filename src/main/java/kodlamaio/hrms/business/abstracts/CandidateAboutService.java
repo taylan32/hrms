@@ -14,5 +14,6 @@ public interface CandidateAboutService {
 	Result update(CandidateAbout candidateAbout);
 	
 	DataResult<List<CandidateAbout>> getOne(int candidateId);
+	DataResult<CandidateAbout> getById(int id);
 	
 }

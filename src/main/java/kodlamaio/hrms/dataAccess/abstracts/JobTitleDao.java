@@ -11,6 +11,8 @@ public interface JobTitleDao extends JpaRepository<JobTitle, Integer>{
 
 	
 	List<JobTitle> getByJobTitleContainingIgnoreCase(String jobTitle);
+	
+	JobTitle getByJobTitle(String jobTitle);
 
 	@Query("SELECT t FROM JobTitle t WHERE t.id = id")
 	JobTitle getByJobtitleId(int jobTitleId);

@@ -52,6 +52,16 @@ public class JobAdvertisementsController {
 	public Result delete(@RequestBody JobAdvertisement jobAdvertisement) {
 		return this.advertisementService.delete(jobAdvertisement);
 	}
+	
+	@GetMapping("/getAll")
+	public DataResult<List<JobAdvertisement>> getAll(){
+		return this.advertisementService.getAll();
+	}
+	
+	@GetMapping("/getById")
+	public DataResult<JobAdvertisement> getById(@RequestParam int jobAdvertisementId){
+		return this.advertisementService.getById(jobAdvertisementId);
+	}
 
 	@GetMapping("/getByEmployerId")
 	public DataResult<List<JobAdvertisement>> getByEmployer_Id(@RequestParam int employerId) {

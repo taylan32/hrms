@@ -15,5 +15,7 @@ public interface JobExperienceService {
 	Result update(JobExperience jobExperiment);
 
 	DataResult<List<JobExperience>> getAllSorted(int candidateId);
+	
+	DataResult<JobExperience> getById(int id);
 
 }

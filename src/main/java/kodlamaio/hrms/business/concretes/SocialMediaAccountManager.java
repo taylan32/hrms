@@ -27,6 +27,8 @@ public class SocialMediaAccountManager implements SocialMediaAccountService {
 
 	@Override
 	public Result add(SocialMediaAccount socialMediaAccount) {
+		String lowerName = socialMediaAccount.getName().toLowerCase();
+		socialMediaAccount.setName(lowerName);
 		this.socialMediaAccountDao.save(socialMediaAccount);
 		return new SuccessResult(Messages.socialMediaAccountAdded);
 	}

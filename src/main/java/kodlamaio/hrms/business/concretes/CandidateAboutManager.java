@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import kodlamaio.hrms.business.abstracts.CandidateAboutService;
 import kodlamaio.hrms.business.constants.Messages;
 import kodlamaio.hrms.core.utilities.results.DataResult;
+import kodlamaio.hrms.core.utilities.results.ErrorDataResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
@@ -48,6 +49,14 @@ public class CandidateAboutManager implements CandidateAboutService {
 	@Override
 	public DataResult<List<CandidateAbout>> getOne(int candidateId) {
 		return new SuccessDataResult<List<CandidateAbout>>(this.candidateAboutDao.getByCandidateId(candidateId));
+	}
+
+	@Override
+	public DataResult<CandidateAbout> getById(int id) {
+		if(!this.candidateAboutDao.existsById(id)) {
+			return new ErrorDataResult<CandidateAbout>("Not found");
+		}
+		return new SuccessDataResult<CandidateAbout>(this.candidateAboutDao.getById(id));
 	}
 
 }

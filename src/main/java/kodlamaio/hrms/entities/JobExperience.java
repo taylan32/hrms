@@ -13,6 +13,8 @@ import javax.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.factory.annotation.Value;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +23,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
 @Table(name = "job_experiences")
 public class JobExperience {
 

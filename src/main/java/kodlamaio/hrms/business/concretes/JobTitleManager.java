@@ -2,7 +2,6 @@ package kodlamaio.hrms.business.concretes;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +29,7 @@ public class JobTitleManager implements JobTitleService {
 	@Override
 	public Result add(JobTitle jobTitle) {
 
-		if (checkIfJobTitleExists(jobTitle.getId())) { // if job title exists
+		if (checkIfJobTitleExists(jobTitle.getJobTitle())) { // if job title exists
 			return new ErrorResult(Messages.jobTitleExists);
 		}
 		this.jobTitleDao.save(jobTitle);
@@ -40,10 +39,10 @@ public class JobTitleManager implements JobTitleService {
 
 	@Override
 	public Result delete(JobTitle jobTitle) {
-
-		if (!checkIfJobTitleExists(jobTitle.getId())) {
-			return new ErrorResult(Messages.jobTitleNotFound);
-		}
+		/*
+		 * if (!checkIfJobTitleExists(jobTitle.getId())) { return new
+		 * ErrorResult(Messages.jobTitleNotFound); }
+		 */
 
 		jobTitleDao.deleteById(jobTitle.getId());
 		return new SuccessResult(Messages.jodTitleDeleted);
@@ -51,10 +50,6 @@ public class JobTitleManager implements JobTitleService {
 
 	@Override
 	public Result update(JobTitle jobTitle) {
-
-		if (!checkIfJobTitleExists(jobTitle.getId())) {
-			return new ErrorResult(Messages.jobTitleNotFound);
-		}
 
 		jobTitleDao.save(jobTitle);
 		return new SuccessResult(Messages.jobTitleUpdated);
@@ -67,7 +62,7 @@ public class JobTitleManager implements JobTitleService {
 
 	@Override
 	public DataResult<JobTitle> getById(int jobTitleId) {
-		if (checkIfJobTitleExists(jobTitleId)) {
+		if (this.jobTitleDao.getById(jobTitleId) == null) {
 			return new SuccessDataResult<JobTitle>(jobTitleDao.getByJobtitleId(jobTitleId));
 		}
 		return new ErrorDataResult<JobTitle>(null, Messages.jobTitleNotFound);
@@ -75,12 +70,17 @@ public class JobTitleManager implements JobTitleService {
 
 	@Override
 	public DataResult<List<JobTitle>> getByJobTitle(String jobTitle) {
-		return new SuccessDataResult<List<JobTitle>>(jobTitleDao.getByJobTitleContainingIgnoreCase(jobTitle),Messages.jobTitleListed);
+		return new SuccessDataResult<List<JobTitle>>(jobTitleDao.getByJobTitleContainingIgnoreCase(jobTitle),
+				Messages.jobTitleListed);
 	}
 
-	
-	private boolean checkIfJobTitleExists(int jobTitleId) {
-		return jobTitleDao.existsById(jobTitleId);
+	private boolean checkIfJobTitleExists(String jobTitle) {
+		var advertisement = this.jobTitleDao.getByJobTitle(jobTitle);
+		if(advertisement != null ) {
+			return true;
+		}
+		return false;
+
 	}
 
 }

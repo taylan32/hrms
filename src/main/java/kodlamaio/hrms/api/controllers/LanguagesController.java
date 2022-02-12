@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -54,8 +55,13 @@ public class LanguagesController {
 	}
 
 	@GetMapping("/getAllByCandidateId")
-	public DataResult<List<Language>> getByCandidateId(int candidateId) {
+	public DataResult<List<Language>> getByCandidateId(@RequestParam int candidateId) {
 		return this.languageService.getByCandidateId(candidateId);
+	}
+	
+	@GetMapping("/getById")
+	public DataResult<Language> getById(@RequestParam int id){
+		return this.languageService.getById(id);
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)

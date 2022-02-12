@@ -53,6 +53,11 @@ public class JobExperiencesController {
 	public ResponseEntity<?> update(@Valid @RequestBody JobExperience jobExperiment) {
 		return ResponseEntity.ok(this.jobExperimentService.update(jobExperiment));
 	}
+	
+	@GetMapping("/getById")
+	public DataResult<JobExperience> getById(@RequestParam int id) {
+		return this.jobExperimentService.getById(id);
+	}
 
 	@GetMapping("/getAll")
 	public DataResult<List<JobExperience>> getAllSorted(@RequestParam int candidateId) {

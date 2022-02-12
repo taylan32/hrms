@@ -41,7 +41,6 @@ public class School {
 	private String yearOfStart;
 
 	@Column(name = "graduation_year")
-	@Length(max = 4, min = 4, message = "gecersiz mezuniyet yili")
 	private String graduationYear;
 
 	@Column(name = "is_completed")
