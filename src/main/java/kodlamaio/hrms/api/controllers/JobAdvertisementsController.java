@@ -87,6 +87,11 @@ public class JobAdvertisementsController {
 	public DataResult<List<JobAdvertisement>> getAllWaitingForConfirmation() {
 		return this.advertisementService.getAllWaitingForConfirmation();
 	}
+		
+	@GetMapping("/getAllWaitingForConfirmationByEmployerId")
+	public DataResult<List<JobAdvertisement>> getAllWaitingForConfirmationByEmployerId(int employerId){
+		return this.advertisementService.getAllWaitingForConfirmationByEmployerId(employerId);
+	}
 
 	@GetMapping("/getAllActiveAdvertisementByEmployerId")
 	public DataResult<List<JobAdvertisement>> getAllActiveJobAdvertisementByEmployerId(@RequestParam int employerId) {

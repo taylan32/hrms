@@ -35,6 +35,8 @@ public interface JobAdvertisementService extends BaseEntityService<JobAdvertisem
 	Result setIsActiveTrue(int jobAdvertisementId);
 
 	Result confirmAdvertisement(int jobAdvertisementId);
+	
+	DataResult<List<JobAdvertisement>> getAllWaitingForConfirmationByEmployerId(int employerId);
 
 	DataResult<List<JobAdvertisement>> getAllActiveByPage(int pageNo, int pageSize);
 

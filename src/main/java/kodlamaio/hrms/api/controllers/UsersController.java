@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import kodlamaio.hrms.business.abstracts.UserService;
 import kodlamaio.hrms.core.entities.User;
 import kodlamaio.hrms.core.utilities.results.DataResult;
+import kodlamaio.hrms.core.utilities.results.Result;
 
 @RestController
 @RequestMapping("/api/users")
@@ -42,4 +43,8 @@ public class UsersController {
 		return this.userService.getByEmail(email);
 	}
 
+	@GetMapping("/login")
+	public Result login(@RequestParam String email, @RequestParam String password) {
+		return this.userService.login(email, password);
+	}
 }

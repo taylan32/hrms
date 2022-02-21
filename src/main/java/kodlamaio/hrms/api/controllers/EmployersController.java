@@ -87,6 +87,11 @@ public class EmployersController {
 	public DataResult<List<Employer>> getByCompanyNameContains(@RequestParam String companyName) {
 		return this.employerService.getByCompanyNameContains(companyName);
 	}
+	
+	@GetMapping("/getByEmail")
+	public DataResult<Employer> getByEmail(@RequestParam String email) {
+		return this.employerService.getByEmail(email);
+	}
 
 	/*
 	@GetMapping("/confirm")

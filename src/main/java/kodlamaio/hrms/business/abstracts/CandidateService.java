@@ -10,4 +10,6 @@ public interface CandidateService extends BaseEntityService<Candidate> {
 
 	DataResult<Candidate> getByIdentityNumber(String identityNumber);
 
+	
+
 }

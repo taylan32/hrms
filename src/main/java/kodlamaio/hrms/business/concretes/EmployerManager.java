@@ -36,8 +36,8 @@ public class EmployerManager implements EmployerService {
 		if (!result.isSuccess()) {
 			return new ErrorResult(result.getMessage());
 		}
-		employer.setConfirmed(false);
 		this.employerDao.save(employer);
+		employer.setConfirmed(false);
 		if(this.imageService.getByUserId(employer.getId()).getData() == null) {
 			this.imageService.uploadDefaultImage(employer);
 		}
@@ -103,6 +103,14 @@ public class EmployerManager implements EmployerService {
 	public Result confirmEmployer(int employerId) {
 		this.employerDao.confirmEmployer(employerId);
 		return new SuccessResult(Messages.employerActive);
+	}
+
+	@Override
+	public DataResult<Employer> getByEmail(String email) {
+		if(!this.employerDao.existsByEmail(email)) {
+			return new ErrorDataResult<Employer>(Messages.employerNotFound);
+		}
+		return new SuccessDataResult<Employer>(this.employerDao.getByEmail(email));
 	}
 
 }

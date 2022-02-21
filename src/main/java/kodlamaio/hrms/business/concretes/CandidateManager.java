@@ -10,7 +10,7 @@ import kodlamaio.hrms.business.abstracts.ImageService;
 import kodlamaio.hrms.business.abstracts.UserService;
 import kodlamaio.hrms.business.constants.Messages;
 import kodlamaio.hrms.core.utilities.results.DataResult;
-
+import kodlamaio.hrms.core.utilities.results.ErrorDataResult;
 import kodlamaio.hrms.core.utilities.results.ErrorResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
@@ -71,6 +71,9 @@ public class CandidateManager implements CandidateService {
 
 	@Override
 	public DataResult<Candidate> getByEmail(String email) {
+		if(!this.candidateDao.existsByEmail(email)){
+			return new ErrorDataResult<Candidate>(Messages.candidateNotFound);
+		}
 		return new SuccessDataResult<Candidate>(this.candidateDao.getByEmail(email), Messages.candidateListed);
 	}
 
@@ -79,6 +82,7 @@ public class CandidateManager implements CandidateService {
 		return new SuccessDataResult<Candidate>(this.candidateDao.getByIdentityNumber(identityNumber),
 				Messages.candidateListed);
 	}
+	
 
 	private boolean checkIfEmailExists(String email) {
 		if (this.userService.getByEmail(email).isSuccess()) {
@@ -86,6 +90,7 @@ public class CandidateManager implements CandidateService {
 		}
 		return true;
 	}
+
 
 	private boolean checkIfIdentityNumberExists(String identityNumber) {
 		if (getByIdentityNumber(identityNumber).getData() == null) {
@@ -104,4 +109,5 @@ public class CandidateManager implements CandidateService {
 		return new SuccessResult();
 	}
 
+	
 }

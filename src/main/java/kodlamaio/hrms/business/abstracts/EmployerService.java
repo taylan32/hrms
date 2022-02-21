@@ -17,6 +17,8 @@ public interface EmployerService extends BaseEntityService<Employer> {
 	DataResult<List<Employer>> getAllPassiveEmployer();
 
 	DataResult<List<Employer>> getByCompanyNameContains(String companyName);
+	
+	DataResult<Employer> getByEmail(String email);
 
 	Result confirmEmployer(int employerId);
 }

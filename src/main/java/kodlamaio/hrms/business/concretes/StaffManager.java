@@ -64,6 +64,14 @@ public class StaffManager implements StaffService {
 		
 		return new SuccessDataResult<Staff>(this.staffDao.getById(id));
 	}
+	
+	@Override
+	public DataResult<Staff> getByEmail(String email) {
+		if(!this.staffDao.existsByEmail(email)) {
+			return new ErrorDataResult<>("Not found");
+		}
+		return new SuccessDataResult<Staff>(this.staffDao.getByEmail(email));
+	}
 
 	@Override
 	public Result confirmAdvertisement(int jobAdvertisementId) {

@@ -74,6 +74,12 @@ public class StaffsController {
 		return this.staffService.confirmEmployer(employerId);
 	}
 	
+	@GetMapping("/getByEmail")
+	public DataResult<Staff> getByEmail(@RequestParam String email) {
+		return this.staffService.getByEmail(email);
+	}
+	
+	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public Map<String, String> handleValidationException(MethodArgumentNotValidException exceptions) {

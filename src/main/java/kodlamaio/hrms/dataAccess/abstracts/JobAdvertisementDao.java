@@ -23,6 +23,9 @@ public interface JobAdvertisementDao extends JpaRepository<JobAdvertisement, Int
 
 	@Query("FROM JobAdvertisement where isConfirmed = false")
 	List<JobAdvertisement> getAllWaitingForConfirmation();
+	
+	@Query("FROM JobAdvertisement where isConfirmed = false and employer.id=:employerId ")
+	List<JobAdvertisement> getAllWaitingForConfirmationByEmployerId(int employerId);
 
 	@Query("FROM JobAdvertisement where isActive = true and employer.id=:employerId and isConfirmed = true")
 	List<JobAdvertisement> getAllActiveJobAdvertisementByEmployerId(int employerId);
@@ -55,9 +58,8 @@ public interface JobAdvertisementDao extends JpaRepository<JobAdvertisement, Int
 	@Query("update JobAdvertisement j set j.isActive = true where j.id=:jobAdvertisementId")
 	void setIsActiveTrue(int jobAdvertisementId);
 
-	// @Query("update JobAdvertisement j set j.isConfirmed = true where
-	// j.id=:jobAdvertisementId")
-	@Query(value = "update job_advertisements set is_confirmed = true where id=jobAdvertisementId", nativeQuery = true)
+
+	@Query("update JobAdvertisement j set j.isConfirmed = true where j.id=:jobAdvertisementId")
 	@Transactional
 	@Modifying
 	void confirmAdvertisement(int jobAdvertisementId);

@@ -19,6 +19,8 @@ public interface EmployerDao extends JpaRepository<Employer, Integer> {
 	@Query("select e from Employer e where e.companyName like %:companyName%")
 	List<Employer> getByCompanyNameContains(String companyName);
 
+	Employer getByEmail(String email);
+	
 	@Query("select e from Employer e where e.phoneNumber=:phoneNumber")
 	Employer getByPhoneNumber(String phoneNumber);
 
@@ -27,10 +29,16 @@ public interface EmployerDao extends JpaRepository<Employer, Integer> {
 
 	@Query("select e from Employer e where e.isConfirmed = false")
 	List<Employer> getAllPassiveEmployer();
+	
+	boolean existsByEmail(String email);
 
 	@Transactional
 	@Modifying
 	@Query("UPDATE Employer e SET e.isConfirmed = true WHERE id=:employerId")
 	void confirmEmployer(int employerId);
+
+	boolean existsByEmailAndPassword(String email, String password);
+
+	Employer getByEmailAndPassword(String email, String password);
 
 }

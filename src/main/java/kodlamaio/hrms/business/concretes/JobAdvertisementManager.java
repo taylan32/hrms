@@ -147,6 +147,13 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 	}
 
 	@Override
+	public DataResult<List<JobAdvertisement>> getAllWaitingForConfirmationByEmployerId(int employerId) {
+		return new SuccessDataResult<List<JobAdvertisement>>(
+				this.jobAdvertisementDao.getAllWaitingForConfirmationByEmployerId(employerId),
+				Messages.advertisementListed);
+	}
+
+	@Override
 	public DataResult<List<JobAdvertisement>> getAllActiveJobAdvertisementByEmployerId(int employerId) {
 		return new SuccessDataResult<List<JobAdvertisement>>(
 				this.jobAdvertisementDao.getAllActiveJobAdvertisementByEmployerId(employerId),
@@ -251,8 +258,6 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 
 		return new SuccessDataResult<List<JobAdvertisement>>(
 				result.stream().skip(skipCount).collect(Collectors.toList()));
-		
-		
 
 	}
 
